@@ -12,6 +12,16 @@ declare global {
 			}>;
 		};
 	}
+
+	namespace JSX {
+		interface IntrinsicAttributes {
+			"client:load"?: boolean;
+			"client:visible"?: boolean;
+			"client:idle"?: boolean;
+			"client:media"?: string;
+			"client:only"?: string;
+		}
+	}
 }
 
 interface SearchResult {
