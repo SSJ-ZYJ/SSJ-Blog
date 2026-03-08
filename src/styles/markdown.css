@@ -20,12 +20,10 @@
     }
 
     a:not(.no-styling) {
-        @apply relative bg-none link font-medium text-[var(--primary)]
-        underline decoration-[var(--link-underline)] decoration-1 decoration-dashed underline-offset-4;
+        @apply relative bg-none font-medium text-[var(--primary)] underline decoration-[var(--link-underline)] decoration-1 decoration-dashed underline-offset-4;
         box-decoration-break: clone;
         -webkit-box-decoration-break: clone;
         display: inline-block;
-    
         &:hover, &:active {
             @apply decoration-transparent;
             background: var(--btn-plain-bg-hover);
@@ -74,13 +72,13 @@
         @apply opacity-100 fill-white dark:fill-white/75;
     }
     .copy-btn.success .copy-icon {
-        @apply opacity-0 fill-[var(--deep-text)]
+        @apply opacity-0 fill-[var(--deep-text)];
     }
     .copy-btn .success-icon {
         @apply opacity-0 fill-white;
     }
     .copy-btn.success .success-icon {
-        @apply opacity-100
+        @apply opacity-100;
     }
 
     .expressive-code {
@@ -117,5 +115,4 @@
         overflow-x: auto;
         margin: 1em 0;
     }
-    
 }
