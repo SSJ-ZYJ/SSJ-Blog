@@ -437,22 +437,20 @@ const setup = () => {
 		// hide the temp high element when the transition is done
 		const heightExtend = document.getElementById('page-height-extend')
 		if (heightExtend) {
-			heightExtend.classList.remove('hidden')
+			heightExtend.classList.add('hidden')
 		}
 	});
 	window.swup.hooks.on('visit:end', (_visit: {to: {url: string}}) => {
-		setTimeout(() => {
-			const heightExtend = document.getElementById('page-height-extend')
-			if (heightExtend) {
-				heightExtend.classList.add('hidden')
-			}
+		const heightExtend = document.getElementById('page-height-extend')
+		if (heightExtend) {
+			heightExtend.classList.add('hidden')
+		}
 
-            // Just make the transition looks better
-            const toc = document.getElementById('toc-wrapper');
-            if (toc) {
-                toc.classList.remove('toc-not-ready')
-            }
-        }, 200)
+        // Just make the transition looks better
+        const toc = document.getElementById('toc-wrapper');
+        if (toc) {
+            toc.classList.remove('toc-not-ready')
+        }
 	});
 }
 if (window?.swup?.hooks) {
@@ -549,7 +547,7 @@ function createPhotoSwipe() {
 	lightbox.init()
 }
 
-const setup = () => {
+const setupPhotoSwipe = () => {
 	if (!lightbox) {
 		createPhotoSwipe()
 	}
@@ -567,8 +565,8 @@ const setup = () => {
 }
 
 if (window.swup) {
-	setup()
+	setupPhotoSwipe()
 } else {
-	document.addEventListener("swup:enable", setup)
+	document.addEventListener("swup:enable", setupPhotoSwipe)
 }
 </script>
