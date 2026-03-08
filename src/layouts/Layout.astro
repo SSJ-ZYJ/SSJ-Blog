@@ -369,6 +369,8 @@ function init() {
 	loadHue();
 	initCustomScrollbar();
 	showBanner();
+	// Ensure page load animation plays on refresh
+	document.documentElement.removeAttribute('data-page-loaded');
 }
 
 /* Load settings when entering the site */
@@ -411,8 +413,13 @@ const setup = () => {
 			navbar.classList.add('navbar-hidden')
 		}
 	})
-	window.swup.hooks.on('content:replace', initCustomScrollbar)
+	window.swup.hooks.on('content:replace', () => {
+		initCustomScrollbar()
+	})
 	window.swup.hooks.on('visit:start', (visit: {to: {url: string}}) => {
+		// Mark page as loaded before new content is loaded
+		document.documentElement.setAttribute('data-page-loaded', 'true')
+		
 		// change banner height immediately when a link is clicked
 		const bodyElement = document.querySelector('body')
 		if (pathsEqual(visit.to.url, url('/'))) {
