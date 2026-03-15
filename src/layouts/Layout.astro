@@ -371,12 +371,22 @@ const setup = () => {
 	})
 */
 	window.swup.hooks.on('link:click', (event: {el: HTMLAnchorElement, href: string}) => {
-		// Prevent Swup from navigating to the same page
-		const currentUrl = window.location.pathname;
-		const targetUrl = new URL(event.href).pathname;
-		if (pathsEqual(currentUrl, targetUrl)) {
-			return false;
-		}
+			// Prevent Swup from navigating to the same page
+			const currentUrl = window.location.pathname;
+			let targetUrl;
+			try {
+				// Check if href exists and is a string
+				if (!event.href || typeof event.href !== 'string') {
+					return;
+				}
+				targetUrl = new URL(event.href).pathname;
+			} catch (error) {
+				// Handle relative paths or invalid URLs
+				return;
+			}
+			if (pathsEqual(currentUrl, targetUrl)) {
+				return false;
+			}
 
 		// Remove the delay for the first time page load
 		document.documentElement.style.setProperty('--content-delay', '0ms')
