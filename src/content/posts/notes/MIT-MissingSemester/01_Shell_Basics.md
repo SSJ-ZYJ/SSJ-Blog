@@ -1,6 +1,6 @@
 ---
 title: "[ Note - Missing Semester ] Ch1 Shell基础 - Introduction to the Shell"
-published: 2026-03-08
+published: 2026-03-08T20:24:31
 description: 笔记 - 计算机教育中缺失的一课 | 这是一篇基于 MIT 开设的一门旨在填补计算机专业教育中“工具技能”空白的课程的笔记。
 image: ./assets/01-cover.png
 tags:
