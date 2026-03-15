@@ -185,7 +185,7 @@ Shell 支持通过 `Tab` 键自动补全路径，提高效率。
 - **用法**：`cat <file>`
 
 <figure style="text-align: center; margin: 0 auto;">
-  <img src="./assets/01_Shell_Basics.png" alt="cat 样式示例" width="600" style="display: block; margin: 0 auto;">
+  <img src="/assets/mit-missingsemester/01_Shell_Basics.png" alt="cat 样式示例" width="600" style="display: block; margin: 0 auto;">
   <figcaption>cat 样式示例</figcaption>
 </figure>
 
@@ -199,7 +199,7 @@ Shell 支持通过 `Tab` 键自动补全路径，提高效率。
 - **用法**：`bat <file>`  
 
 <figure style="text-align: center; margin: 0 auto;">
-  <img src="./assets/01_Shell_Basics-1.png" alt="bat 样式示例" width="600" style="display: block; margin: 0 auto;">
+  <img src="/assets/mit-missingsemester/01_Shell_Basics-1.png" alt="bat 样式示例" width="600" style="display: block; margin: 0 auto;">
   <figcaption>bat 样式示例</figcaption>
 </figure>
 
