@@ -9,7 +9,10 @@ export function parseDirectiveNode() {
 				node.type === "leafDirective" ||
 				node.type === "textDirective"
 			) {
-				const data = node.data || (node.data = {});
+				if (!node.data) {
+					node.data = {};
+				}
+				const data = node.data;
 				node.attributes = node.attributes || {};
 				if (
 					node.children &&
