@@ -12,7 +12,7 @@ draft: false
 lang: ""
 ---
 :::note
-本文档旨在记录观看 MIT Missing Semester 课程时的核心笔记，涵盖 Shell 基础概念、常用命令及现代替代工具。
+本文档旨在记录观看 MIT Missing Semester 课程时的核心笔记，涵盖 Shell 基础概念、常用命令、现代替代工具与 Shell 编程。
 :::
 # 1. Shell 概述
 ## 1.1 什么是 Shell？
