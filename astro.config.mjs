@@ -12,7 +12,7 @@ import rehypeComponents from "rehype-components"; /* Render the custom directive
 import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import remarkDirective from "remark-directive"; /* Handle directives */
-import remarkGithubAdmonitionsToDirectives from "remark-github-admonitions-to-directives";
+import remarkGfm from "remark-gfm"; /* GitHub Flavored Markdown support */
 import remarkMath from "remark-math";
 import remarkSectionize from "remark-sectionize";
 import { expressiveCodeConfig } from "./src/config.ts";
@@ -22,6 +22,7 @@ import { AdmonitionComponent } from "./src/plugins/rehype-component-admonition.m
 import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.mjs";
 import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
 import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
+import { remarkGithubAdmonitionsToDirectives } from "./src/plugins/remark-github-admonitions.mjs";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 
 // https://astro.build/config
@@ -105,6 +106,7 @@ export default defineConfig({
 	],
 	markdown: {
 		remarkPlugins: [
+			remarkGfm,
 			remarkMath,
 			remarkReadingTime,
 			remarkExcerpt,

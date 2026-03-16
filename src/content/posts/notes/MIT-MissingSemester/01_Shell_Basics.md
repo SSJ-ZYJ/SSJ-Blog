@@ -11,9 +11,10 @@ category: Notes
 draft: false
 lang: ""
 ---
-:::note
+:::note[前言]
 本文档旨在记录观看 MIT Missing Semester 课程时的核心笔记，涵盖 Shell 基础概念、常用命令、现代替代工具与 Shell 编程。
 :::
+
 # 1. Shell 概述
 ## 1.1 什么是 Shell？
 Shell 是位于操作系统内核与用户之间的外围薄层程序。它为用户提供了一个直接访问系统功能的接口，允许用户通过文本命令与操作系统进行交互。Shell 通常以**命令行界面 (CLI)** 的形式存在。
