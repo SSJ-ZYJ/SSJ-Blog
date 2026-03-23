@@ -22,7 +22,7 @@ export function setHue(hue: number): void {
 	r.style.setProperty("--hue", String(hue));
 }
 
-export function applyThemeToDocument(_theme: LIGHT_DARK_MODE) {
+export function applyThemeToDocument(_theme: LIGHT_DARK_MODE): void {
 	document.documentElement.classList.add("dark");
 	document.documentElement.setAttribute(
 		"data-theme",

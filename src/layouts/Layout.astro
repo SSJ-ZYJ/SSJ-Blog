@@ -270,22 +270,27 @@ function loadHue() {
 function initCustomScrollbar() {
 	const bodyElement = document.querySelector('body');
 	if (!bodyElement) return;
-	OverlayScrollbars(
-		// docs say that a initialization to the body element would affect native functionality like window.scrollTo
-		// but just leave it here for now
+	
+	if ((bodyElement as any)._osInstance) {
+		return;
+	}
+	
+	const instance = OverlayScrollbars(
 		{
 			target: bodyElement,
 			cancel: {
-				nativeScrollbarsOverlaid: true,    // don't initialize the overlay scrollbar if there is a native one
+				nativeScrollbarsOverlaid: true,
 			}
 		}, {
-		scrollbars: {
-			theme: 'scrollbar-base scrollbar-auto py-1',
-			autoHide: 'move',
-			autoHideDelay: 500,
-			autoHideSuspend: false,
-		},
-	});
+			scrollbars: {
+				theme: 'scrollbar-base scrollbar-auto py-1',
+				autoHide: 'move',
+				autoHideDelay: 500,
+				autoHideSuspend: false,
+			},
+		});
+	
+	(bodyElement as any)._osInstance = instance;
 
 	const katexElements = document.querySelectorAll('.katex-display') as NodeListOf<HTMLElement>;
 
@@ -345,13 +350,13 @@ function showBanner() {
 }
 
 function init() {
-	// disableAnimation()()		// TODO
 	loadTheme();
 	loadHue();
-	initCustomScrollbar();
 	showBanner();
-	// Ensure page load animation plays on refresh
-	document.documentElement.removeAttribute('data-page-loaded');
+	setTimeout(() => {
+		document.documentElement.setAttribute('data-page-loaded', 'true');
+		initCustomScrollbar();
+	}, 800);
 }
 
 /* Load settings when entering the site */

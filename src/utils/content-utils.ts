@@ -1,13 +1,23 @@
-import { type CollectionEntry, getCollection } from "astro:content";
+import { getCollection } from "astro:content";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
-import { getCategoryUrl } from "@utils/url-utils.ts";
+import { getCategoryUrl } from "@utils/url-utils";
+import type { PostData } from "@/content.config";
 
-// // Retrieve posts and sort them by publication date
-async function getRawSortedPosts() {
-	const allBlogPosts = await getCollection("posts", ({ data }) => {
+function getSlugFromId(id: string): string {
+	return id.replace(/\.(md|mdx)$/, "");
+}
+
+interface RawPost {
+	id: string;
+	body?: string;
+	data: PostData;
+}
+
+async function getRawSortedPosts(): Promise<RawPost[]> {
+	const allBlogPosts = (await getCollection("posts", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
-	});
+	})) as RawPost[];
 
 	const sorted = allBlogPosts.sort((a, b) => {
 		const dateA = new Date(a.data.published);
@@ -17,30 +27,36 @@ async function getRawSortedPosts() {
 	return sorted;
 }
 
-export async function getSortedPosts() {
+interface PostWithSlug extends RawPost {
+	slug: string;
+}
+
+export async function getSortedPosts(): Promise<PostWithSlug[]> {
 	const sorted = await getRawSortedPosts();
 
 	for (let i = 1; i < sorted.length; i++) {
-		sorted[i].data.nextSlug = sorted[i - 1].slug;
+		sorted[i].data.nextSlug = getSlugFromId(sorted[i - 1].id);
 		sorted[i].data.nextTitle = sorted[i - 1].data.title;
 	}
 	for (let i = 0; i < sorted.length - 1; i++) {
-		sorted[i].data.prevSlug = sorted[i + 1].slug;
+		sorted[i].data.prevSlug = getSlugFromId(sorted[i + 1].id);
 		sorted[i].data.prevTitle = sorted[i + 1].data.title;
 	}
 
-	return sorted;
+	return sorted.map((entry) => ({
+		...entry,
+		slug: getSlugFromId(entry.id),
+	}));
 }
 export type PostForList = {
 	slug: string;
-	data: CollectionEntry<"posts">["data"];
+	data: PostData;
 };
 export async function getSortedPostsList(): Promise<PostForList[]> {
 	const sortedFullPosts = await getRawSortedPosts();
 
-	// delete post.body
 	const sortedPostsList = sortedFullPosts.map((post) => ({
-		slug: post.slug,
+		slug: getSlugFromId(post.id),
 		data: post.data,
 	}));
 
@@ -52,19 +68,18 @@ export type Tag = {
 };
 
 export async function getTagList(): Promise<Tag[]> {
-	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
+	const allBlogPosts = (await getCollection("posts", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
-	});
+	})) as RawPost[];
 
-	const countMap: { [key: string]: number } = {};
-	allBlogPosts.forEach((post: { data: { tags: string[] } }) => {
-		post.data.tags.forEach((tag: string) => {
+	const countMap: Record<string, number> = {};
+	allBlogPosts.forEach((post) => {
+		(post.data.tags ?? []).forEach((tag: string) => {
 			if (!countMap[tag]) countMap[tag] = 0;
 			countMap[tag]++;
 		});
 	});
 
-	// sort tags
 	const keys: string[] = Object.keys(countMap).sort((a, b) => {
 		return a.toLowerCase().localeCompare(b.toLowerCase());
 	});
@@ -79,11 +94,11 @@ export type Category = {
 };
 
 export async function getCategoryList(): Promise<Category[]> {
-	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
+	const allBlogPosts = (await getCollection("posts", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
-	});
-	const count: { [key: string]: number } = {};
-	allBlogPosts.forEach((post: { data: { category: string | null } }) => {
+	})) as RawPost[];
+	const count: Record<string, number> = {};
+	allBlogPosts.forEach((post) => {
 		if (!post.data.category) {
 			const ucKey = i18n(I18nKey.uncategorized);
 			count[ucKey] = count[ucKey] ? count[ucKey] + 1 : 1;

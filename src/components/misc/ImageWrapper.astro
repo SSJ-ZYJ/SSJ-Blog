@@ -24,24 +24,33 @@ const isLocal = !(
 );
 const isPublic = src.startsWith("/");
 
-// TODO temporary workaround for images dynamic import
-// https://github.com/withastro/astro/issues/3373
-// biome-ignore lint/suspicious/noImplicitAnyLet: <check later>
-let img;
+let img: ImageMetadata | undefined;
 if (isLocal) {
-	const files = import.meta.glob<ImageMetadata>("../../**", {
+	const files = import.meta.glob<ImageMetadata>("src/**", {
 		import: "default",
+		eager: false,
 	});
-	let normalizedPath = path
-		.normalize(path.join("../../", basePath, src))
+	const normalizedSrc = src.replace(/^\.\//, "").replace(/^\//, "");
+	const normalizedBasePath = basePath.replace(/^\.\//, "").replace(/^\//, "");
+	const normalizedPath = path
+		.normalize(path.join("src/", normalizedBasePath, normalizedSrc))
 		.replace(/\\/g, "/");
-	const file = files[normalizedPath];
+
+	const file = files[`/${normalizedPath}`];
 	if (!file) {
-		console.error(
-			`\n[ERROR] Image file not found: ${normalizedPath.replace("../../", "src/")}`,
-		);
+		const lowerPath = `/${normalizedPath}`.toLowerCase();
+		for (const [key, value] of Object.entries(files)) {
+			if (key.toLowerCase() === lowerPath) {
+				img = (await value()) as ImageMetadata;
+				break;
+			}
+		}
+		if (!img) {
+			console.error(`\n[ERROR] Image file not found: /${normalizedPath}`);
+		}
+	} else {
+		img = (await file()) as ImageMetadata;
 	}
-	img = await file();
 }
 
 const imageClass = "w-full h-full object-cover";
