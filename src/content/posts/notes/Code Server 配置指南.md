@@ -12,11 +12,10 @@ category: Tutorial
 draft: false
 lang: ""
 ---
-> [!NOTE]  
+> [!NOTE] 前言
 > 基于系统：Ubuntu 24.04 LTS  
 > 配置环境：C/C++ & clang  
 > 使用的docker镜像：[linuxserver/docker-code-server](https://github.com/linuxserver/docker-code-server)
-
 ---
 
 # 系统配置
