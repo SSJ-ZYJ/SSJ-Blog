@@ -1,5 +1,6 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
+import { z } from "zod";
 
 export const postsSchema = z.object({
 	title: z.string(),
@@ -22,16 +23,16 @@ export interface PostData {
 	title: string;
 	published: Date;
 	updated?: Date;
-	draft?: boolean;
-	description?: string;
-	image?: string;
-	tags?: string[];
-	category?: string | null;
-	lang?: string;
-	prevTitle?: string;
-	prevSlug?: string;
-	nextTitle?: string;
-	nextSlug?: string;
+	draft: boolean;
+	description: string;
+	image: string;
+	tags: string[];
+	category: string | null;
+	lang: string;
+	prevTitle: string;
+	prevSlug: string;
+	nextTitle: string;
+	nextSlug: string;
 }
 
 export const collections = {

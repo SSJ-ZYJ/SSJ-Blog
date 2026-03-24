@@ -11,6 +11,7 @@ function getSlugFromId(id: string): string {
 interface RawPost {
 	id: string;
 	body?: string;
+	collection: "posts";
 	data: PostData;
 }
 
