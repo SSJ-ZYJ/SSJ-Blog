@@ -142,11 +142,12 @@ function handleMobileInput() {
 <div id="search-bar" class="hidden lg:flex transition-all items-center h-11 mr-2 rounded-lg
       bg-black/[0.04] hover:bg-black/[0.06] focus-within:bg-black/[0.06]
       dark:bg-white/5 dark:hover:bg-white/10 dark:focus-within:bg-white/10
+      w-40 focus-within:w-60
 ">
     <svg xmlns="http://www.w3.org/2000/svg" class="absolute text-[1.25rem] pointer-events-none ml-3 transition my-auto text-black/30 dark:text-white/30" width="1.25em" height="1.25em" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0c.41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5S14 7.01 14 9.5S11.99 14 9.5 14z"/></svg>
     <input placeholder="{i18n(I18nKey.search)}" bind:value={keywordDesktop} oninput={handleDesktopInput} onfocus={() => search(keywordDesktop, true)}
            class="transition-all pl-10 text-sm bg-transparent outline-0
-         h-full w-40 active:w-60 focus:w-60 text-black/50 dark:text-white/50"
+         h-full w-full text-black/50 dark:text-white/50"
     >
 </div>
 
@@ -158,7 +159,7 @@ function handleMobileInput() {
 
 <!-- search panel -->
 <div id="search-panel" class="float-panel float-panel-closed search-panel absolute md:w-[30rem]
-top-20 left-4 md:left-[unset] right-4 shadow-2xl rounded-2xl p-2">
+top-20 right-4 shadow-2xl rounded-2xl p-2">
 
     <!-- search bar inside panel for phone/tablet -->
     <div id="search-bar-inside" class="flex relative lg:hidden transition-all items-center h-11 rounded-xl

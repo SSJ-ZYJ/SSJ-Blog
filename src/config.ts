@@ -56,11 +56,11 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Home,
 		LinkPreset.Archive,
 		LinkPreset.About,
-		{
-			name: "GitHub",
-			url: "https://github.com/SSJ-ZYJ/SSJ-Blog", // Internal links should not include the base path, as it is automatically added
-			external: true, // Show an external link icon and will open in a new tab
-		},
+		// {
+		// 	name: "GitHub",
+		// 	url: "https://github.com/SSJ-ZYJ/SSJ-Blog", // Internal links should not include the base path, as it is automatically added
+		// 	external: true, // Show an external link icon and will open in a new tab
+		// },
 	],
 };
 
