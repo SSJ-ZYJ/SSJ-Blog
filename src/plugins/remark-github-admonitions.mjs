@@ -1,6 +1,13 @@
 import { visit } from "unist-util-visit";
 
-const GITHUB_ALERT_TYPES = ["NOTE", "TIP", "IMPORTANT", "WARNING", "CAUTION"];
+const GITHUB_ALERT_TYPES = [
+	"NOTE",
+	"TIP",
+	"IMPORTANT",
+	"WARNING",
+	"CAUTION",
+	"INFO",
+];
 const GITHUB_ALERT_DECLARATION_REGEX = /^\s*\[!(?<type>\w+)\]\s*(?<title>.*)$/;
 
 function isGithubAlertType(type) {
@@ -14,6 +21,7 @@ function mapGithubAlertTypeToDirectiveName(type) {
 		IMPORTANT: "important",
 		WARNING: "warning",
 		CAUTION: "caution",
+		INFO: "info",
 	};
 	return typeMap[type?.toUpperCase()] || type?.toLowerCase();
 }
@@ -30,27 +38,69 @@ function parseGithubAlertBlockquote(node) {
 	if (firstChild?.type !== "paragraph") return null;
 
 	const [firstParagraphChild, ...paragraphChildren] = firstChild.children;
-	if (firstParagraphChild?.type !== "text") return null;
 
-	const [possibleTypeDeclaration, ...textNodes] =
-		firstParagraphChild.value.split("\n");
-	if (possibleTypeDeclaration === undefined) return null;
+	let parsed = null;
+	let textNodeChildren = [];
+	let alertParagraphChildren = [];
+	let remainingParagraphChildren = paragraphChildren;
 
-	const parsed = parseGithubAlertDeclaration(possibleTypeDeclaration);
-	if (parsed === null) return null;
+	if (firstParagraphChild?.type === "text") {
+		const [possibleTypeDeclaration, ...textNodes] =
+			firstParagraphChild.value.split("\n");
+		if (possibleTypeDeclaration === undefined) return null;
+
+		parsed = parseGithubAlertDeclaration(possibleTypeDeclaration);
+		if (parsed === null) return null;
+
+		textNodeChildren =
+			textNodes.length > 0
+				? [{ type: "text", value: textNodes.join("\n") }]
+				: [];
+	} else if (firstParagraphChild?.type === "linkReference") {
+		const identifier = firstParagraphChild.identifier;
+		if (!identifier || !identifier.startsWith("!")) return null;
+
+		const type = identifier.substring(1);
+		if (!isGithubAlertType(type)) return null;
+
+		let title = null;
+		let contentParagraphChildren = [...paragraphChildren];
+
+		if (
+			firstParagraphChild.children &&
+			firstParagraphChild.children.length > 0
+		) {
+			const linkChildren = firstParagraphChild.children;
+			if (linkChildren[0]?.type === "text") {
+				title = linkChildren[0].value?.trim() || null;
+			}
+		}
+
+		if (
+			!title &&
+			paragraphChildren.length > 0 &&
+			paragraphChildren[0]?.type === "text"
+		) {
+			title = paragraphChildren[0].value?.trim() || null;
+			contentParagraphChildren = paragraphChildren.slice(1);
+		}
+
+		parsed = { type, title };
+		remainingParagraphChildren = contentParagraphChildren;
+	} else {
+		return null;
+	}
 
 	const { type, title } = parsed;
 
-	const textNodeChildren =
-		textNodes.length > 0 ? [{ type: "text", value: textNodes.join("\n") }] : [];
 	const hasParagraphChildren =
-		textNodeChildren.length > 0 || paragraphChildren.length > 0;
+		textNodeChildren.length > 0 || remainingParagraphChildren.length > 0;
 
-	const alertParagraphChildren = hasParagraphChildren
+	alertParagraphChildren = hasParagraphChildren
 		? [
 				{
 					type: "paragraph",
-					children: [...textNodeChildren, ...paragraphChildren],
+					children: [...textNodeChildren, ...remainingParagraphChildren],
 				},
 			]
 		: [];
