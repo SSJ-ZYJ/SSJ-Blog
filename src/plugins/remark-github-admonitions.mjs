@@ -93,6 +93,28 @@ function parseGithubAlertBlockquote(node) {
 
 	const { type, title } = parsed;
 
+	// Remove leading break nodes from remainingParagraphChildren
+	// These are caused by trailing spaces (hard line breaks) after the title
+	while (
+		remainingParagraphChildren.length > 0 &&
+		remainingParagraphChildren[0]?.type === "break"
+	) {
+		remainingParagraphChildren = remainingParagraphChildren.slice(1);
+	}
+
+	// Also remove leading break nodes from textNodeChildren if they exist
+	if (
+		textNodeChildren.length > 0 &&
+		textNodeChildren[0]?.type === "text" &&
+		textNodeChildren[0].value
+	) {
+		// Trim leading newlines/whitespace from the text value
+		textNodeChildren[0].value = textNodeChildren[0].value.replace(/^\s+/, "");
+		if (textNodeChildren[0].value === "") {
+			textNodeChildren = [];
+		}
+	}
+
 	const hasParagraphChildren =
 		textNodeChildren.length > 0 || remainingParagraphChildren.length > 0;
 
