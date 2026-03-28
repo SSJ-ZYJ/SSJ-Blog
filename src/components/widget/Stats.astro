@@ -1,0 +1,27 @@
+---
+import { Icon } from "astro-icon/components";
+import I18nKey from "../../i18n/i18nKey";
+import { i18n } from "../../i18n/translation";
+import { formatNumber, getSiteStats } from "../../utils/writing-stats";
+
+const stats = await getSiteStats();
+---
+<div class="card-base p-3">
+    <div class="flex justify-around items-center">
+        <div class="flex flex-col items-center">
+            <div class="flex items-center gap-1.5 text-[var(--primary)]">
+                <Icon name="fa6-solid:pen-nib" class="text-lg" />
+                <span class="text-2xl font-bold">{stats.postCount}</span>
+            </div>
+            <span class="text-sm text-black/50 dark:text-white/50 mt-1">{i18n(I18nKey.postCount)}</span>
+        </div>
+        <div class="w-px h-8 bg-black/10 dark:bg-white/10"></div>
+        <div class="flex flex-col items-center">
+            <div class="flex items-center gap-1.5 text-[var(--primary)]">
+                <Icon name="fa6-solid:book" class="text-lg" />
+                <span class="text-2xl font-bold">{formatNumber(stats.totalWords)}</span>
+            </div>
+            <span class="text-sm text-black/50 dark:text-white/50 mt-1">{i18n(I18nKey.wordsCount)}</span>
+        </div>
+    </div>
+</div>
