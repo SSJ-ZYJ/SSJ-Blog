@@ -277,8 +277,15 @@ class TableOfContents extends HTMLElement {
 
         if (this.tocEntries.length === 0) return;
 
+        this.sections.forEach((section) => {
+            if (section) {
+                this.observer.unobserve(section);
+            }
+        });
+
         this.sections = new Array(this.tocEntries.length);
         this.headings = new Array(this.tocEntries.length);
+        this.headingIdxMap.clear();
         
         for (let i = 0; i < this.tocEntries.length; i++) {
             const id = decodeURIComponent(this.tocEntries[i].hash?.substring(1) || '');
@@ -294,7 +301,6 @@ class TableOfContents extends HTMLElement {
         
         this.active = new Array(this.tocEntries.length).fill(false);
 
-        // Only observe valid sections
         this.sections.forEach((section) => {
             if (section) {
                 this.observer.observe(section);

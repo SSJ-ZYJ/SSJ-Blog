@@ -1,5 +1,16 @@
 import type { AUTO_MODE, DARK_MODE, LIGHT_MODE } from "@constants/constants";
 
+export type BackgroundConfig = {
+	enable: boolean;
+	src: string;
+	position?: "top" | "center" | "bottom";
+	size?: "cover" | "contain" | "auto";
+	repeat?: "no-repeat" | "repeat" | "repeat-x" | "repeat-y";
+	attachment?: "fixed" | "scroll" | "local";
+	opacity?: number;
+	blur?: number;
+};
+
 export type SiteConfig = {
 	title: string;
 	subtitle: string;
@@ -30,6 +41,7 @@ export type SiteConfig = {
 			url?: string;
 		};
 	};
+	background?: BackgroundConfig;
 	toc: {
 		enable: boolean;
 		depth: 1 | 2 | 3;

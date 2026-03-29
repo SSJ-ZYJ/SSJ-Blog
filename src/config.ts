@@ -76,7 +76,7 @@ export const profileConfig: ProfileConfig = {
 		{
 			name: "Mail",
 			icon: "fa6-regular:envelope",
-			url: "mailto:shenshijun@outlook.com",
+			url: "mailto:me@shenshijun.space",
 		},
 		{
 			name: "Bilibili",

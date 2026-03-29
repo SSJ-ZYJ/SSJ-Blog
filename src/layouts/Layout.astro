@@ -442,6 +442,14 @@ const setup = () => {
 		if (heightExtend) {
 			heightExtend.classList.add('hidden')
 		}
+
+		// Re-initialize TOC after page transition
+		const tocElements = document.querySelectorAll('table-of-contents');
+		tocElements.forEach((el) => {
+			if (el && typeof (el as any).init === 'function') {
+				setTimeout(() => (el as any).init(), 350);
+			}
+		});
 	});
 	window.swup.hooks.on('visit:end', (_visit: {to: {url: string}}) => {
 		const heightExtend = document.getElementById('page-height-extend')
