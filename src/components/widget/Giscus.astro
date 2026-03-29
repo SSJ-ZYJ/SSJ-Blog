@@ -1,0 +1,49 @@
+---
+import type { GiscusConfig } from "@/types/config";
+
+interface Props {
+	config: GiscusConfig;
+	class?: string;
+}
+
+const { config, class: className } = Astro.props;
+---
+
+{config.enable && (
+	<div class:list={["giscus-container", className]}>
+		<script
+			src="https://giscus.app/client.js"
+			data-repo={config.repo}
+			data-repo-id={config.repoId}
+			data-category={config.category}
+			data-category-id={config.categoryId}
+			data-mapping={config.mapping}
+			data-strict={config.strict}
+			data-reactions-enabled={config.reactionsEnabled}
+			data-emit-metadata={config.emitMetadata}
+			data-input-position={config.inputPosition}
+			data-theme={config.theme}
+			data-lang={config.lang}
+			data-loading={config.loading}
+			crossorigin="anonymous"
+			async
+		></script>
+	</div>
+)}
+
+<style>
+	.giscus-container {
+		margin-top: 1.5rem;
+		border-radius: var(--radius-large);
+		overflow: hidden;
+	}
+	
+	.giscus-container :global(.giscus) {
+		max-width: 100%;
+	}
+	
+	.giscus-container :global(.giscus-frame) {
+		width: 100%;
+		border: none;
+	}
+</style>

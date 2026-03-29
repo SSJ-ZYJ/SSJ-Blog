@@ -3,6 +3,7 @@ import { render } from "astro:content";
 import path from "node:path";
 import License from "@components/misc/License.astro";
 import Markdown from "@components/misc/Markdown.astro";
+import Giscus from "@components/widget/Giscus.astro";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
@@ -12,7 +13,7 @@ import { Icon } from "astro-icon/components";
 import { licenseConfig } from "src/config";
 import ImageWrapper from "../../components/misc/ImageWrapper.astro";
 import PostMetadata from "../../components/PostMeta.astro";
-import { profileConfig, siteConfig } from "../../config";
+import { giscusConfig, profileConfig, siteConfig } from "../../config";
 import { formatDateToYYYYMMDD } from "../../utils/date-utils";
 
 export async function getStaticPaths() {
@@ -106,6 +107,8 @@ const jsonLd = {
             </Markdown>
 
             {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
+
+            <Giscus config={giscusConfig} class="onload-animation" />
 
         </div>
     </div>

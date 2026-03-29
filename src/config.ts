@@ -1,5 +1,6 @@
 import type {
 	ExpressiveCodeConfig,
+	GiscusConfig,
 	LicenseConfig,
 	NavBarConfig,
 	ProfileConfig,
@@ -103,7 +104,21 @@ export const licenseConfig: LicenseConfig = {
 };
 
 export const expressiveCodeConfig: ExpressiveCodeConfig = {
-	// Note: Some styles (such as background color) are being overridden, see the astro.config.mjs file.
-	// Please select a dark theme, as this blog theme currently only supports dark background color
 	theme: "github-dark",
+};
+
+export const giscusConfig: GiscusConfig = {
+	enable: true,
+	repo: "SSJ-ZYJ/SSJ-Blog",
+	repoId: "R_kgDORhUVew",
+	category: "Announcements",
+	categoryId: "DIC_kwDORhUVe84C5eSI",
+	mapping: "pathname",
+	strict: "0",
+	reactionsEnabled: "1",
+	emitMetadata: "0",
+	inputPosition: "top",
+	theme: "preferred_color_scheme",
+	lang: "zh-CN",
+	loading: "lazy",
 };
