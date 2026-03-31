@@ -158,7 +158,7 @@ function handleMobileInput() {
 </button>
 
 <!-- search panel -->
-<div id="search-panel" class="float-panel float-panel-closed search-panel absolute md:w-[30rem]
+<div id="search-panel" class="float-panel float-panel-closed search-panel fixed lg:absolute z-50 md:w-[30rem]
 top-20 right-4 shadow-2xl rounded-2xl p-2">
 
     <!-- search bar inside panel for phone/tablet -->
