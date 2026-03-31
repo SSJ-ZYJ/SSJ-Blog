@@ -43,6 +43,16 @@ banner = siteConfig.banner.src;
 
 const enableBanner = siteConfig.banner.enable;
 
+const backgroundConfig = siteConfig.background || {
+	enable: false,
+	src: "",
+	position: "center",
+	size: "cover",
+	repeat: "no-repeat",
+	attachment: "fixed",
+	opacity: 1,
+};
+
 let pageTitle: string;
 if (title) {
 	pageTitle = `${title} - ${siteConfig.title}`;
@@ -71,6 +81,7 @@ const bannerOffset =
 <!DOCTYPE html>
 <html lang={siteLang} class="bg-[var(--page-bg)] transition text-[14px] md:text-[16px]"
 	  data-overlayscrollbars-initialize
+	  style={`--bg-src: ${backgroundConfig.enable ? `url(${backgroundConfig.src})` : 'none'}; --bg-position: ${backgroundConfig.position || 'center'}; --bg-size: ${backgroundConfig.size || 'cover'}; --bg-repeat: ${backgroundConfig.repeat || 'no-repeat'}; --bg-attachment: ${backgroundConfig.attachment || 'fixed'}; --bg-opacity: ${backgroundConfig.enable ? (backgroundConfig.opacity ?? 1) : 0};`}
 >
 	<head>
 
@@ -118,10 +129,34 @@ const bannerOffset =
 			offset = offset - offset % 4;
 			document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
 		</script>
-		<style define:vars={{
+		<style is:global define:vars={{
 			configHue,
 			'page-width': `${PAGE_WIDTH}rem`,
-		}}></style>  <!-- defines global css variables. This will be applied to <html> <body> and some other elements idk why -->
+		}}></style>
+
+		<style is:global>
+			#bg-box {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-image: var(--bg-src);
+				background-position: var(--bg-position);
+				background-size: var(--bg-size);
+				background-repeat: var(--bg-repeat);
+				background-attachment: var(--bg-attachment);
+				opacity: 0;
+				pointer-events: none;
+				z-index: -1;
+				transition: opacity 0.3s ease-in-out;
+				will-change: transform;
+				transform: translateZ(0);
+			}
+			#bg-box.loaded {
+				opacity: var(--bg-opacity);
+			}
+		</style>
 
 
 		<slot name="head"></slot>
@@ -132,6 +167,14 @@ const bannerOffset =
 	<body class=" min-h-screen transition " class:list={[{"lg:is-home": isHomePage, "enable-banner": enableBanner}]}
 		  data-overlayscrollbars-initialize
 	>
+		<noscript>
+			<style>
+				#bg-box {
+					opacity: 1 !important;
+				}
+			</style>
+		</noscript>
+		<div id="bg-box"></div>
 		<ConfigCarrier></ConfigCarrier>
 		<slot />
 
@@ -349,10 +392,21 @@ function showBanner() {
 	banner.classList.remove('opacity-0', 'scale-105');
 }
 
+function loadBackground() {
+	const bgBox = document.getElementById('bg-box');
+	if (!bgBox) return;
+
+	const bgEnable = getComputedStyle(document.documentElement).getPropertyValue('--bg-opacity').trim();
+	if (bgEnable === '0') return;
+
+	bgBox.classList.add('loaded');
+}
+
 function init() {
 	loadTheme();
 	loadHue();
 	showBanner();
+	loadBackground();
 	setTimeout(() => {
 		document.documentElement.setAttribute('data-page-loaded', 'true');
 		initCustomScrollbar();

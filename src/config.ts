@@ -26,6 +26,15 @@ export const siteConfig: SiteConfig = {
 			url: "", // (Optional) URL link to the original artwork or artist's page
 		},
 	},
+	background: {
+		enable: true,
+		src: "/wallpaper/0.jpg",
+		position: "center",
+		size: "cover",
+		repeat: "no-repeat",
+		attachment: "fixed",
+		opacity: 0.5,
+	},
 	toc: {
 		enable: true, // Display the table of contents on the right side of the post
 		depth: 3, // Maximum heading depth to show in the table, from 1 to 3
