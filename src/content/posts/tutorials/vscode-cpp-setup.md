@@ -2,7 +2,7 @@
 title: VSCode - C/C++ 环境配置、插件配置与使用指南
 published: 2026-03-31T20:34:31
 description: Dev-C++ 已过时，过于简陋，Visual Studio / CLion 对于写个小算法程序又稍显臃肿……来试试 VSCode 吧！
-image: ""
+image: "/assets/vscode-cpp-setup/cover.png"
 tags:
   - VSCode
   - Tech
@@ -12,17 +12,17 @@ lang: ""
 ---
 
 > [!IMPORTANT] 适用范围声明
-> 本教程**仅适用于 Windows 操作系统**的用户。
+> 本教程 **仅适用于 Windows 操作系统** 的用户。
 > 
-> 本教程的目标读者为**初学者**，主要用于编写**算法竞赛/练习题**（如洛谷、Codeforces、LeetCode 等平台的题目），不涉及复杂项目开发。
+> 本教程的目标读者为 **初学者** 的用户，主要用于编写 **算法竞赛/练习题**（如洛谷、Codeforces、LeetCode 等平台的题目），不涉及复杂项目开发。
 > 
-> 本教程**不包含 CMake 等构建工具**的使用方法，如需进行大型项目开发，请参考其他专业资料。
+> 本教程 **不包含 CMake 等构建工具** 的使用方法，如需进行大型项目开发，请参考其他文档。 
 
 # 一、配置 C/C++ 环境
 
 ## 1. 下载与安装 MSYS2
 
-> [!INFO] 什么是 MSYS2？
+> [!INFO] 什么是 MSYS2？  
 > MSYS2 是一个基于 Cygwin 和 MinGW-w64 构建的现代化 Windows 软件分发与开发平台，核心使用 `pacman` 包管理器统一管理类 Unix 工具链与原生 Windows 编译环境。
 
 前往 MSYS2 官方网站：[MSYS2](https://www.msys2.org/)
@@ -34,10 +34,10 @@ lang: ""
 > #### 方法一：通过"设置"查看
 >
 > 1. 按键盘快捷键 `Win + I` 打开"设置"（或者点击开始菜单 → 设置齿轮图标）；
-> 2. 在左侧点击**"系统"**，右侧下滑到底部，点击**"系统信息"**；
-> 3. 在**"设备规格"**区域找到**"系统类型"**一栏：
->    - 如果显示**"基于 x64 的处理器"**：你是 **x86/x64** 架构（绝大多数 Intel 或 AMD 芯片）。
->    - 如果显示**"基于 ARM 的处理器"**：你是 **ARM64** 架构（常见于搭载高通骁龙芯片如 Surface Pro X 等设备）。
+> 2. 在左侧点击 **"系统"**，右侧下滑到底部，点击 **"系统信息"**；
+> 3. 在 **"设备规格"** **区域** 下找到 **"系统类型"** 一栏：
+>    - 如果显示 **"基于 x64 的处理器"**：你是 **x86/x64** 架构（绝大多数 Intel 或 AMD 芯片）。
+>    - 如果显示 **"基于 ARM 的处理器"**：你是 **ARM64** 架构（常见于搭载高通骁龙芯片如 Surface Pro X 等设备）。 
 >
 > 例如以下就是一台搭载基于 x86 64 位架构处理器的设备：
 > ![](/assets/vscode-cpp-setup/CPU_Architecture.png)
@@ -71,7 +71,7 @@ pacman -Syu
 
 ## 2. 安装 C/C++ 工具链
 
-在 `MSYS2 UCRT64`**终端**中执行：
+在 `MSYS2 UCRT64` **终端** 中执行：
 
 ```bash
 pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-toolchain mingw-w64-ucrt-x86_64-clang-tools-extra mingw-w64-ucrt-x86_64-cmake mingw-w64-ucrt-x86_64-ninja
@@ -104,14 +104,18 @@ where g++         # 应显示路径而不是提示未找到文件
 > [!NOTE] Windows 系统下如何配置环境变量？
 >
 > 1. 按 `Win + I` 打开设置（或在开始菜单找到设置打开）；
-> 2. 在左侧点击**"系统"**，右侧下滑到底部，点击**"系统信息"**；
-> 3. 在**"设备规格"**区域**下方**找到**"高级系统设置"**；
+> 2. 在左侧点击 **"系统"**，右侧下滑到底部，点击 **"系统信息"**；
+> 3. 在 **"设备规格"** 区域 **下方** 找到 **"高级系统设置"**；
 >    ![](/assets/vscode-cpp-setup/Path-01.png)
-> 4. 点击**"环境变量"** → **"系统变量"** → **"Path"**；
+> 4. 点击 **"环境变量"** → **"系统变量"** → **"Path"**；
 >    ![](/assets/vscode-cpp-setup/Path-02.png)
-> 5. 点击**"浏览"**，或**"新建"**，将上述路径添加到 Path 中。
->    ![400](/assets/vscode-cpp-setup/Path-03.png)
-> 6. 点击"确定"保存设置。
+> 5. 点击 **"浏览"**，或 **"新建"**，将上述路径添加到 Path 中。
+> 
+>    <figure style="text-align: center; margin: 0 auto;">
+>      <img src="/assets/vscode-cpp-setup/Path-03.png" alt="Path 配置页面" width="400" style="display: block; margin: 0 auto;">
+>      <figcaption>Path 配置页面</figcaption>
+>    </figure>
+> 6. 点击 **"确定"** 保存设置。 
 
 **验证环境变量：**
 
@@ -134,16 +138,23 @@ g++ --version
 前往 VSCode 官网下载网站：[Download Visual Studio Code - Mac, Linux, Windows](https://code.visualstudio.com/Download)
 
 根据 CPU 架构，下载 `System Installer`：
-![161](/assets/vscode-cpp-setup/VSCode-Download.png)
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/VSCode-Download.png" alt="VSCode 下载页面" width="150" style="display: block; margin: 0 auto;">
+  <figcaption>VSCode 下载页面</figcaption>
+</figure>
 
 ### 安装 VSCode
 
-双击安装包，若有 UAC 弹窗，请点击**"允许"**或**"是"**。
+双击安装包，若有 UAC 弹窗，请点击 **"允许"** 或 **"是"** 。
 
 随后，一路"下一步"安装，根据自己磁盘与程序存储路径偏好，选择合适的安装路径，并请牢记。
 
 安装时，推荐勾选以下选项（是否创建快捷方式请按个人需求勾选）：
-![418](/assets/vscode-cpp-setup/VSCode-Installer.png)
+
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/VSCode-Installer.png" alt="VSCode 安装界面" width="500" style="display: block; margin: 0 auto;">
+  <figcaption>VSCode 安装界面</figcaption>
+</figure>
 
 ## 2. 配置 VSCode
 
@@ -162,7 +173,7 @@ g++ --version
 ### 安装 C/C++ 相关插件
 
 > [!INFO] 弹窗提示
-> 安装过程中，若遇到**"是否信任发布者"**弹窗，请点击**"信任发布者并安装"**。
+> 安装过程中，若遇到 **"是否信任发布者"** 弹窗，请点击 **"信任发布者并安装"** 。
 
 搜索并安装：`C/C++`、`C/C++ Compile Run` 插件。
 ![616](/assets/vscode-cpp-setup/VSCode-Extension-01.png)
@@ -201,12 +212,16 @@ g++ --version
 > [!NOTE] Clang-Format 插件的作用
 > Clang-Format 是一款专用于 C/C++/Objective-C 等代码的自动格式化工具，可统一代码风格，提高可读性。
 
-可以通过**"右键 → 格式化文档"**或按默认键盘快捷键 **`Shift + Alt + F`** 进行格式化操作。
+可以通过 **"右键 → 格式化文档"** 或按默认键盘快捷键 **`Shift + Alt + F`** 进行格式化操作。
 
 初次操作，可能会出现如下弹窗，提示选择一个格式化程序：
-![407](/assets/vscode-cpp-setup/Clang-Format-01.png)
 
-点击**"配置"**，选择 **Clang-Format**，如图所示：
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/Clang-Format-01.png" alt="Clang-Format 格式化程序选择弹窗" width="400" style="display: block; margin: 0 auto;">
+  <figcaption>Clang-Format 格式化程序选择弹窗</figcaption>
+</figure>
+
+点击 **"配置"**，选择 **Clang-Format**，如图所示：
 ![](/assets/vscode-cpp-setup/Clang-Format-02.png)
 
 随后，代码会被自动格式化。
@@ -221,7 +236,7 @@ g++ --version
 随后，在 Clang-Format 插件设置中，指定格式化文件的绝对路径：`file:C:/Users/SSJ_VMdemo/.clang-format`。如下图：
 ![](/assets/vscode-cpp-setup/Clang-Format-03.png)
 
-最后，附上笔者习惯的格式化风格文件，仅供参考：
+最后，附上SSJ习惯的格式化风格文件，仅供参考：
 
 ```yaml
 # 基础风格
@@ -295,7 +310,7 @@ int main(void) {
 ### 调试 C/C++ 程序
 
 > [!INFO] 调试前提示
-> 调试前，请务必**添加（设置）断点**！
+> 调试前，请务必 **添加（设置）断点** ！
 
 若按上述步骤正确配置后，可直接通过右上角按钮进行调试（默认快捷键 `F5`），如图：
 ![683](/assets/vscode-cpp-setup/CPP-demo-03.png)
@@ -368,7 +383,7 @@ int main(void) {
 
 项目 GitHub 地址：[GitHub's VS Code themes](https://github.com/primer/github-vscode-theme)
 
-笔者个人推荐 `GitHub Theme` 插件提供的 `GitHub Dark Colorblind (Beta)` 样式主题。
+SSJ 个人推荐 `GitHub Theme` 插件提供的 `GitHub Dark Colorblind (Beta)` 样式主题。
 
 ### One Dark Pro
 
