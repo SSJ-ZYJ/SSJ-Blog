@@ -58,7 +58,7 @@ function parseGithubAlertBlockquote(node) {
 				: [];
 	} else if (firstParagraphChild?.type === "linkReference") {
 		const identifier = firstParagraphChild.identifier;
-		if (!identifier || !identifier.startsWith("!")) return null;
+		if (!identifier?.startsWith("!")) return null;
 
 		const type = identifier.substring(1);
 		if (!isGithubAlertType(type)) return null;

@@ -36,5 +36,9 @@ export function setTheme(_theme: LIGHT_DARK_MODE): void {
 }
 
 export function getStoredTheme(): LIGHT_DARK_MODE {
+	const stored = localStorage.getItem("theme");
+	if (stored === "light" || stored === "dark" || stored === "auto") {
+		return stored as LIGHT_DARK_MODE;
+	}
 	return DARK_MODE;
 }

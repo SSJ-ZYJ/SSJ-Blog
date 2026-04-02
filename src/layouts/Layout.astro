@@ -34,12 +34,9 @@ const isHomePage = pathsEqual(Astro.url.pathname, url("/"));
 // defines global css variables
 // why doing this in Layout instead of GlobalStyles: https://github.com/withastro/astro/issues/6728#issuecomment-1502203757
 const configHue = siteConfig.themeColor.hue;
-if (!banner || typeof banner !== "string" || banner.trim() === "") {
-	banner = siteConfig.banner.src;
-}
 
-// TODO don't use post cover as banner for now
-banner = siteConfig.banner.src;
+// use siteConfig.banner.src as the banner source
+let bannerSrc = siteConfig.banner.src;
 
 const enableBanner = siteConfig.banner.enable;
 
@@ -314,7 +311,8 @@ function initCustomScrollbar() {
 	const bodyElement = document.querySelector('body');
 	if (!bodyElement) return;
 	
-	if ((bodyElement as any)._osInstance) {
+	const osInstanceKey = '_osInstance';
+	if ((bodyElement as unknown as Record<string, unknown>)[osInstanceKey]) {
 		return;
 	}
 	
@@ -329,11 +327,11 @@ function initCustomScrollbar() {
 				theme: 'scrollbar-base scrollbar-auto py-1',
 				autoHide: 'move',
 				autoHideDelay: 500,
-				autoHideSuspend: false,
-			},
+				autoHideSuspend: false
+			}
 		});
-	
-	(bodyElement as any)._osInstance = instance;
+
+	(bodyElement as unknown as Record<string, unknown>)[osInstanceKey] = instance;
 
 	const katexElements = document.querySelectorAll('.katex-display') as NodeListOf<HTMLElement>;
 
@@ -500,8 +498,8 @@ const setup = () => {
 		// Re-initialize TOC after page transition
 		const tocElements = document.querySelectorAll('table-of-contents');
 		tocElements.forEach((el) => {
-			if (el && typeof (el as any).init === 'function') {
-				setTimeout(() => (el as any).init(), 350);
+			if (el && 'init' in el && typeof (el as HTMLElement & { init?: () => void }).init === 'function') {
+				setTimeout(() => (el as HTMLElement & { init: () => void }).init(), 350);
 			}
 		});
 	});
