@@ -22,6 +22,9 @@ declare global {
 			"client:only"?: string;
 		}
 	}
+
+	const __GIT_COMMIT_HASH__: string;
+	const __GIT_BUILD_DATE__: string;
 }
 
 interface SearchResult {

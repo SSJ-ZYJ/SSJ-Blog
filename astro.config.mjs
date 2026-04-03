@@ -1,3 +1,4 @@
+import { execSync } from "node:child_process";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
@@ -25,6 +26,34 @@ import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
 import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
 import { remarkGithubAdmonitionsToDirectives } from "./src/plugins/remark-github-admonitions.mjs";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
+
+let __GIT_COMMIT_HASH__ = "unknown";
+let __GIT_BUILD_DATE__ = "unknown";
+
+try {
+	__GIT_COMMIT_HASH__ = execSync("git rev-parse --short=7 HEAD").toString().trim();
+
+	const date = new Date();
+	const parts = new Intl.DateTimeFormat("zh-CN", {
+		timeZone: "Asia/Shanghai",
+		year: "numeric",
+		month: "2-digit",
+		day: "2-digit",
+		hour: "2-digit",
+		minute: "2-digit",
+		second: "2-digit",
+		hour12: false,
+	}).formatToParts(date);
+	const year = parts.find((p) => p.type === "year")?.value ?? "0000";
+	const month = parts.find((p) => p.type === "month")?.value ?? "00";
+	const day = parts.find((p) => p.type === "day")?.value ?? "00";
+	const hour = parts.find((p) => p.type === "hour")?.value ?? "00";
+	const minute = parts.find((p) => p.type === "minute")?.value ?? "00";
+	const second = parts.find((p) => p.type === "second")?.value ?? "00";
+	__GIT_BUILD_DATE__ = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+} catch (e) {
+	console.warn("Failed to get git info", e);
+}
 
 // https://astro.build/config
 export default defineConfig({
@@ -166,6 +195,10 @@ export default defineConfig({
 	vite: {
 		css: {
 			lightningcss: false,
+		},
+		define: {
+			__GIT_COMMIT_HASH__: JSON.stringify(__GIT_COMMIT_HASH__),
+			__GIT_BUILD_DATE__: JSON.stringify(__GIT_BUILD_DATE__),
 		},
 		build: {
 			rollupOptions: {

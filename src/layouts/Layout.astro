@@ -18,13 +18,12 @@ import "katex/dist/katex.css";
 
 interface Props {
 	title?: string;
-	banner?: string;
 	description?: string;
 	lang?: string;
 	setOGTypeArticle?: boolean;
 }
 
-let { title, banner, description, lang, setOGTypeArticle } = Astro.props;
+let { title, description, lang, setOGTypeArticle } = Astro.props;
 
 // apply a class to the body element to decide the height of the banner, only used for initial page load
 // Swup can update the body for each page visit, but it's after the page transition, causing a delay for banner height change
@@ -34,9 +33,6 @@ const isHomePage = pathsEqual(Astro.url.pathname, url("/"));
 // defines global css variables
 // why doing this in Layout instead of GlobalStyles: https://github.com/withastro/astro/issues/6728#issuecomment-1502203757
 const configHue = siteConfig.themeColor.hue;
-
-// use siteConfig.banner.src as the banner source
-let bannerSrc = siteConfig.banner.src;
 
 const enableBanner = siteConfig.banner.enable;
 
