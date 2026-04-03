@@ -66,6 +66,7 @@ export type NavBarLink = {
 	name: string;
 	url: string;
 	external?: boolean;
+	icon?: string;
 };
 
 export type NavBarConfig = {
