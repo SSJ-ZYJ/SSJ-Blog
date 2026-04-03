@@ -2,7 +2,7 @@
 title: Code Server 配置基础编程环境指南
 published: 2026-02-27T18:38:31
 description: 学校机房又没有好用的IDE？现下现配又十分麻烦……来试试自己部署一个 Code Server 吧！
-image: ""
+image: "/assets/codeserver/cover.png"
 tags:
   - Tech
   - Linux
