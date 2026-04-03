@@ -1,5 +1,4 @@
 {
-	"exclude": ["src/components/misc/MarkdownImage.astro"],
 	"extends": "astro/tsconfigs/strict",
 	"compilerOptions": {
 		"baseUrl": ".",

@@ -387,7 +387,7 @@ SSJ 个人推荐 `GitHub Theme` 插件提供的 `GitHub Dark Colorblind (Beta)` 
 
 ### One Dark Pro
 
-项目 GitHub 地址：[Atom's iconic One Dark theme for Visual Studio Code](https://github.com/nhbusch/onedark-pro)
+项目 GitHub 地址：[Atom's iconic One Dark theme for Visual Studio Code](https://github.com/Binaryify/OneDark-Pro)
 
 也可以安装 `One Dark Pro` 插件，它提供的多款样式也十分美观。
 
