@@ -31,7 +31,9 @@ let __GIT_COMMIT_HASH__ = "unknown";
 let __GIT_BUILD_DATE__ = "unknown";
 
 try {
-	__GIT_COMMIT_HASH__ = execSync("git rev-parse --short=7 HEAD").toString().trim();
+	__GIT_COMMIT_HASH__ = execSync("git rev-parse --short=7 HEAD")
+		.toString()
+		.trim();
 
 	const date = new Date();
 	const parts = new Intl.DateTimeFormat("zh-CN", {
@@ -106,7 +108,7 @@ export default defineConfig({
 				borderColor: "none",
 				codeFontSize: "0.875rem",
 				codeFontFamily:
-					"'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+					"'Maple Mono CN', 'Maple Mono', 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
 				codeLineHeight: "1.5rem",
 				frames: {
 					editorBackground: "var(--codeblock-bg)",

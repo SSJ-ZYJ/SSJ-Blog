@@ -1,7 +1,10 @@
 ---
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
+import "@fontsource/noto-sans/400.css";
+import "@fontsource/noto-sans/500.css";
+import "@fontsource/noto-sans/700.css";
+import "@fontsource/noto-sans-sc/400.css";
+import "@fontsource/noto-sans-sc/500.css";
+import "@fontsource/noto-sans-sc/700.css";
 
 import ConfigCarrier from "@components/ConfigCarrier.astro";
 import { profileConfig, siteConfig } from "@/config";
@@ -498,8 +501,6 @@ const setup = () => {
 				setTimeout(() => (el as HTMLElement & { init: () => void }).init(), 350);
 			}
 		});
-
-		toc = document.getElementById('toc-wrapper');
 	});
 	window.swup.hooks.on('visit:end', (_visit: {to: {url: string}}) => {
 		const heightExtend = document.getElementById('page-height-extend')
