@@ -12,9 +12,7 @@ lang: ""
 ---
 > [!IMPORTANT] 适用范围声明  
 > 1. 本教程 **仅适用于 Windows 操作系统** 的用户。
-> 
 > 2. 本教程的目标读者为 **初学者**，主要用于编写 **算法竞赛/练习题**（如洛谷、Codeforces、LeetCode 等平台的题目），不涉及复杂项目开发。
-> 
 > 3. 本教程 **不包含 CMake 等构建工具** 的使用方法，如需进行大型项目开发，请参考其他文档。	
 
 ---
@@ -161,7 +159,7 @@ g++ --version
 
 ### 安装并切换简体中文语言包
 
-> [!INFO] 观前提示  
+> [!TIP] 提示  
 > 若具有一定的英语阅读能力，且无需更换程序语言为简体中文，可跳过此步。
 
 搜索并安装：`Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code` 插件。
@@ -382,11 +380,13 @@ int main(void) {
   <img src="/assets/vscode-cpp-setup/CPH-01.png" alt="Google Chrome 安装界面" width="500" style="display: block; margin: 0 auto;">
   <figcaption>Google Chrome 安装界面</figcaption>
 </figure>
+
   - Microsoft Edge 浏览器：  
 <figure style="text-align: center; margin: 0 auto;">
   <img src="/assets/vscode-cpp-setup/CPH-02.png" alt="Microsoft Edge 安装界面" width="500" style="display: block; margin: 0 auto;">
   <figcaption>Microsoft Edge 安装界面</figcaption>
 </figure>
+
   - Mozilla Firefox 浏览器：  
 <figure style="text-align: center; margin: 0 auto;">
   <img src="/assets/vscode-cpp-setup/CPH-03.png" alt="Mozilla Firefox 安装界面" width="500" style="display: block; margin: 0 auto;">
@@ -397,10 +397,10 @@ int main(void) {
 ## 2. Luogu 插件
 
 - 在 VSCode 中搜索并安装 `vscode-luogu` 插件。如下图：  
-  <figure style="text-align: center; margin: 0 auto;">
-    <img src="/assets/vscode-cpp-setup/VSCode-Extension-09.png" alt="Luogu 插件安装界面" width="500" style="display: block; margin: 0 auto;">
-    <figcaption>Luogu 插件安装界面</figcaption>
-  </figure>
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/VSCode-Extension-09.png" alt="Luogu 插件安装界面" width="500" style="display: block; margin: 0 auto;">
+  <figcaption>Luogu 插件安装界面</figcaption>
+</figure>
 
 ### 使用方法
 
