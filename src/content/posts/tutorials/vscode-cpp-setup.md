@@ -370,10 +370,10 @@ int main(void) {
 ## 1. Competitive Programming Helper (CPH) 插件
 
 - 在 VSCode 中搜索并安装 `CPH` 插件。如下图：  
-  <figure style="text-align: center; margin: 0 auto;">
-    <img src="/assets/vscode-cpp-setup/VSCode-Extension-08.png" alt="CPH 插件安装界面" width="500" style="display: block; margin: 0 auto;">
-    <figcaption>CPH 插件安装界面</figcaption>
-  </figure>
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/VSCode-Extension-08.png" alt="CPH 插件安装界面" width="500" style="display: block; margin: 0 auto;">
+  <figcaption>CPH 插件安装界面</figcaption>
+</figure>
 - 在浏览器中安装 `Competitive Companion` 插件。如下图：
   - Google Chrome 浏览器：  
 <figure style="text-align: center; margin: 0 auto;">
