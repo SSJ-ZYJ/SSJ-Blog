@@ -498,6 +498,8 @@ const setup = () => {
 				setTimeout(() => (el as HTMLElement & { init: () => void }).init(), 350);
 			}
 		});
+
+		toc = document.getElementById('toc-wrapper');
 	});
 	window.swup.hooks.on('visit:end', (_visit: {to: {url: string}}) => {
 		const heightExtend = document.getElementById('page-height-extend')

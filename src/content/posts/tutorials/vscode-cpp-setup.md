@@ -11,11 +11,13 @@ draft: false
 lang: ""
 ---
 > [!IMPORTANT] 适用范围声明  
-> 本教程 **仅适用于 Windows 操作系统** 的用户。
+> 1. 本教程 **仅适用于 Windows 操作系统** 的用户。
 > 
-> 本教程的目标读者为 **初学者**，主要用于编写 **算法竞赛/练习题**（如洛谷、Codeforces、LeetCode 等平台的题目），不涉及复杂项目开发。
+> 2. 本教程的目标读者为 **初学者**，主要用于编写 **算法竞赛/练习题**（如洛谷、Codeforces、LeetCode 等平台的题目），不涉及复杂项目开发。
 > 
-> 本教程 **不包含 CMake 等构建工具** 的使用方法，如需进行大型项目开发，请参考其他文档。	
+> 3. 本教程 **不包含 CMake 等构建工具** 的使用方法，如需进行大型项目开发，请参考其他文档。	
+
+---
 
 # 一、配置 C/C++ 环境
 
@@ -30,7 +32,7 @@ lang: ""
 
 > [!NOTE] 如何判断自己的计算机处理器架构？
 > 
-> #### 方法一：通过"设置"查看
+> #### 方法一：通过 "设置" 查看处理器架构
 > 
 > 1. 按键盘快捷键 `Win + I` 打开"设置"（或者点击开始菜单 → 设置齿轮图标）；
 > 2. 在左侧点击 **"系统"** ，右侧下滑到底部，点击 **"系统信息"** ；
@@ -41,7 +43,7 @@ lang: ""
 > 例如以下就是一台搭载基于 x86 64 位架构处理器的设备：  
 > ![](/assets/vscode-cpp-setup/CPU_Architecture.png)
 > 
-> #### 方法二：使用命令提示符
+> #### 方法二：使用 "命令提示符" 查看处理器架构
 > 
 > 4. 按下 **`Win + R`**，输入 `cmd` 并回车（**注意：不要使用 PowerShell**）。
 > 5. 在黑色窗口中输入以下命令并回车：
@@ -108,8 +110,12 @@ where g++         # 应显示路径而不是提示未找到文件
 > 4. 点击 **"环境变量"** → **"系统变量"** → **"Path"** ；  
 > ![](/assets/vscode-cpp-setup/Path-02.png)
 > 5. 点击 **"浏览"** ，或 **"新建"** ，将上述路径添加到 Path 中。  
-> ![400](/assets/vscode-cpp-setup/Path-03.png)
-> 6. 点击"确定"保存设置。
+> <figure style="text-align: center; margin: 0 auto;">
+> 	<img src="/assets/vscode-cpp-setup/Path-03.png" alt="Path 配置页面" width="400" style="display: block; margin: 0 auto;">
+>   <figcaption>Path 配置页面</figcaption>
+> </figure>
+> 
+> 6. 点击 **"确定"** 保存设置。
 
 **验证环境变量：**
 
@@ -123,6 +129,8 @@ g++ --version
 正确配置后输出（版本号可能随时间发展而变动，请以实际安装显示为准）：  
 ![](/assets/vscode-cpp-setup/Verification-02.png)
 
+---
+
 # 二、安装与配置 VSCode
 
 ## 1. 下载与安装 VSCode
@@ -132,7 +140,10 @@ g++ --version
 前往 VSCode 官网下载网站：[Download Visual Studio Code - Mac, Linux, Windows](https://code.visualstudio.com/Download)
 
 根据 CPU 架构，下载 `System Installer`：  
-![161](/assets/vscode-cpp-setup/VSCode-Download.png)
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/VSCode-Download.png" alt="VSCode 下载页面" width="150" style="display: block; margin: 0 auto;">
+  <figcaption>VSCode 下载页面</figcaption>
+</figure>
 
 ### 安装 VSCode
 
@@ -141,7 +152,10 @@ g++ --version
 随后，一路"下一步"安装，根据自己磁盘与程序存储路径偏好，选择合适的安装路径，并请牢记。
 
 安装时，推荐勾选以下选项（是否创建快捷方式请按个人需求勾选）：  
-![418](/assets/vscode-cpp-setup/VSCode-Installer.png)
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/VSCode-Installer.png" alt="VSCode 安装界面" width="500" style="display: block; margin: 0 auto;">
+  <figcaption>VSCode 安装界面</figcaption>
+</figure>
 
 ## 2. 配置 VSCode
 
@@ -155,7 +169,10 @@ g++ --version
 ![](/assets/vscode-cpp-setup/VSCode-LP.png)
 
 随后，点击 `Change Language And Restart` 按钮，VSCode 会自动重启并切换为简体中文。  
-![473](/assets/vscode-cpp-setup/VSCode-LP-R.png)
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/VSCode-LP-R.png" alt="VSCode 重启弹窗" width="400" style="display: block; margin: 0 auto;">
+  <figcaption>VSCode 重启弹窗</figcaption>
+</figure>
 
 ### 安装 C/C++ 相关插件
 
@@ -163,11 +180,20 @@ g++ --version
 > 安装过程中，若遇到 **"是否信任发布者"** 弹窗，请点击 **"信任发布者并安装"** 。
 
 搜索并安装：`C/C++`、`C/C++ Compile Run` 插件。  
-![616](/assets/vscode-cpp-setup/VSCode-Extension-01.png)
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/VSCode-Extension-01.png" alt="VSCode 插件安装界面" width="500" style="display: block; margin: 0 auto;">
+  <figcaption>VSCode 插件安装界面</figcaption>
+</figure>
 
 搜索并安装：`clangd`、`Clang-Format` 插件。  
-![616](/assets/vscode-cpp-setup/VSCode-Extension-02.png)  
-![616](/assets/vscode-cpp-setup/VSCode-Extension-03.png)
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/VSCode-Extension-02.png" alt="clangd 插件安装界面" width="500" style="display: block; margin: 0 auto;">
+  <figcaption>clangd 插件安装界面</figcaption>
+</figure>
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/VSCode-Extension-03.png" alt="Clang-Format 插件安装界面" width="500" style="display: block; margin: 0 auto;">
+  <figcaption>Clang-Format 插件安装界面</figcaption>
+</figure>
 
 ### 配置相关插件
 
@@ -176,7 +202,10 @@ g++ --version
 首先，打开或新建任意 `.cpp` 后缀的文件，推荐写一个小程序，方便后续配置。
 
 此时，通常情况下，`clangd` 插件会提示功能冲突，如下图：  
-![424](/assets/vscode-cpp-setup/VSCode-Extension-04.png)
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/VSCode-Extension-04.png" alt="clangd 插件功能冲突弹窗" width="500" style="display: block; margin: 0 auto;">
+  <figcaption>clangd 插件功能冲突弹窗</figcaption>
+</figure>
 
 请点击 `Disable IntelliSense` 按钮，关闭微软 C/C++ 插件的 IntelliSense 功能（代码自动补全、语法检查等），以避免与 `clangd` 冲突。
 
@@ -192,7 +221,10 @@ g++ --version
 > [!TIP]  
 > 若上一行有配置项，请在末尾加上 `,`（英文半角逗号）。  
 > 如下图所示：  
-> ![500](/assets/vscode-cpp-setup/VSCode-Extension-06.png)
+> <figure style="text-align: center; margin: 0 auto;">
+>   <img src="/assets/vscode-cpp-setup/VSCode-Extension-06.png" alt="VSCode 用户设置（JSON）" width="500" style="display: block; margin: 0 auto;">
+>   <figcaption>VSCode 用户设置（JSON）</figcaption>
+> </figure>
 
 #### 配置 Clang-Format 插件
 
@@ -202,7 +234,10 @@ g++ --version
 可以通过 **"右键 → 格式化文档"** 或按默认键盘快捷键 **`Shift + Alt + F`** 进行格式化操作。
 
 初次操作，可能会出现如下弹窗，提示选择一个格式化程序：  
-![407](/assets/vscode-cpp-setup/Clang-Format-01.png)
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/Clang-Format-01.png" alt="Clang-Format 格式化程序选择弹窗" width="400" style="display: block; margin: 0 auto;">
+  <figcaption>Clang-Format 格式化程序选择弹窗</figcaption>
+</figure>
 
 点击 **"配置"**，选择 **Clang-Format**，如图所示：  
 ![](/assets/vscode-cpp-setup/Clang-Format-02.png)
@@ -262,7 +297,10 @@ IndentWidth: 4
 - **弹窗提示报错：`The 'clangd' language server was not found on your PATH.`**
   - 解决方式一：检查是否正确配置环境变量；
   - 解决方式二：在 `clangd` 插件设置中，设置 `clangd` 可执行文件的绝对路径。如图所示：  
-	![592](/assets/vscode-cpp-setup/VSCode-Extension-07.png)
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/VSCode-Extension-07.png" alt="clangd 插件设置" width="500" style="display: block; margin: 0 auto;">
+  <figcaption>clangd 插件设置</figcaption>
+</figure>
 
 - **打开 `.cpp` 文件，提示 `fatal error: 'iostream' file not found` 或其他头文件无法找到**
   - 检查一：是否正确配置环境变量；
@@ -273,7 +311,10 @@ IndentWidth: 4
 ### 编译与运行 C/C++ 程序
 
 若按上述步骤正确配置后，可直接通过右上角按钮，一键编译与运行 C/C++ 程序（默认快捷键 `F6`），如图：  
-![560](/assets/vscode-cpp-setup/CPP-demo-02.png)
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/CPP-demo-02.png" alt="编译与运行界面" width="500" style="display: block; margin: 0 auto;">
+  <figcaption>编译与运行界面</figcaption>
+</figure>
 
 截图中的示例程序（供后续配置使用）：
 
@@ -296,9 +337,10 @@ int main(void) {
 > 调试前，请务必 **添加（设置）断点** ！
 
 若按上述步骤正确配置后，可直接通过右上角按钮进行调试（默认快捷键 `F5`），如图：  
-![683](/assets/vscode-cpp-setup/CPP-demo-03.png)
-
-### 常见问题预案
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/CPP-demo-03.png" alt="调试界面" width="500" style="display: block; margin: 0 auto;">
+  <figcaption>调试界面</figcaption>
+</figure>
 
 - **无法正常编译运行/调试程序**
   - 检查一：是否正确配置环境变量；
@@ -323,27 +365,42 @@ int main(void) {
 	}
 	```
 
+---
+
 # 三、Extras
 
 ## 1. Competitive Programming Helper (CPH) 插件
 
 - 在 VSCode 中搜索并安装 `CPH` 插件。如下图：  
-  ![555](/assets/vscode-cpp-setup/VSCode-Extension-08.png)
-
+  <figure style="text-align: center; margin: 0 auto;">
+    <img src="/assets/vscode-cpp-setup/VSCode-Extension-08.png" alt="CPH 插件安装界面" width="500" style="display: block; margin: 0 auto;">
+    <figcaption>CPH 插件安装界面</figcaption>
+  </figure>
 - 在浏览器中安装 `Competitive Companion` 插件。如下图：
   - Google Chrome 浏览器：  
-	![485](/assets/vscode-cpp-setup/CPH-01.png)
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/CPH-01.png" alt="Google Chrome 安装界面" width="500" style="display: block; margin: 0 auto;">
+  <figcaption>Google Chrome 安装界面</figcaption>
+</figure>
   - Microsoft Edge 浏览器：  
-	![485](/assets/vscode-cpp-setup/CPH-02.png)
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/CPH-02.png" alt="Microsoft Edge 安装界面" width="500" style="display: block; margin: 0 auto;">
+  <figcaption>Microsoft Edge 安装界面</figcaption>
+</figure>
   - Mozilla Firefox 浏览器：  
-	![485](/assets/vscode-cpp-setup/CPH-03.png)
-
+<figure style="text-align: center; margin: 0 auto;">
+  <img src="/assets/vscode-cpp-setup/CPH-03.png" alt="Mozilla Firefox 安装界面" width="500" style="display: block; margin: 0 auto;">
+  <figcaption>Mozilla Firefox 安装界面</figcaption>
+</figure>
 随后，在绝大多数 OJ 平台（如洛谷、LeetCode、Codeforces 等，不支持头歌平台），在开启 VSCode 并打开任意文件夹（推荐新建一个空文件夹存放相关文件）的前提下，点击浏览器插件的"加号"图标，即可将题目信息提取到 VSCode 中。
 
 ## 2. Luogu 插件
 
 - 在 VSCode 中搜索并安装 `vscode-luogu` 插件。如下图：  
-  ![555](/assets/vscode-cpp-setup/VSCode-Extension-09.png)
+  <figure style="text-align: center; margin: 0 auto;">
+    <img src="/assets/vscode-cpp-setup/VSCode-Extension-09.png" alt="Luogu 插件安装界面" width="500" style="display: block; margin: 0 auto;">
+    <figcaption>Luogu 插件安装界面</figcaption>
+  </figure>
 
 ### 使用方法
 

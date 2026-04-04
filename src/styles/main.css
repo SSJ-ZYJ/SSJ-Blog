@@ -31,6 +31,12 @@ html {
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
     }
+    .toc-panel {
+        @apply rounded-xl transition;
+        background: oklch(0.19 0.015 var(--hue) / 0.75);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
     .float-panel-closed {
         @apply -translate-y-1 opacity-0 pointer-events-none
     }
@@ -75,10 +81,6 @@ html {
 
     #toc .visible {
         @apply text-[var(--toc-item-active)] font-medium
-    }
-
-    #toc-inner-wrapper {
-        mask-image: linear-gradient(to bottom, transparent 0%, black 2rem, black calc(100% - 2rem), transparent 100%);
     }
 
     .hide-scrollbar {
