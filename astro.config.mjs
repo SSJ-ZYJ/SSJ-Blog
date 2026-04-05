@@ -1,4 +1,8 @@
 import { execSync } from "node:child_process";
+import { EventEmitter } from "node:events";
+
+EventEmitter.defaultMaxListeners = 20;
+
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
