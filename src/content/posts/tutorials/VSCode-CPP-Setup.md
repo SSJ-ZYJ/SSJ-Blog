@@ -12,7 +12,9 @@ lang: ""
 ---
 > [!IMPORTANT] 适用范围声明  
 > 1. 本教程 **仅适用于 Windows 操作系统** 的用户。
+> 
 > 2. 本教程的目标读者为 **初学者**，主要用于编写 **算法竞赛/练习题**（如洛谷、Codeforces、LeetCode 等平台的题目），不涉及复杂项目开发。
+> 
 > 3. 本教程 **不包含 CMake 等构建工具** 的使用方法，如需进行大型项目开发，请参考其他文档。	
 
 ---
@@ -159,7 +161,7 @@ g++ --version
 
 ### 安装并切换简体中文语言包
 
-> [!TIP] 提示  
+> [!INFO] 观前提示  
 > 若具有一定的英语阅读能力，且无需更换程序语言为简体中文，可跳过此步。
 
 搜索并安装：`Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code` 插件。
@@ -340,6 +342,7 @@ int main(void) {
   <figcaption>调试界面</figcaption>
 </figure>
 
+### 常见问题预案
 - **无法正常编译运行/调试程序**
   - 检查一：是否正确配置环境变量；
   - 检查二：是否按照本指南正确安装并配置 C/C++ 环境。
@@ -363,6 +366,10 @@ int main(void) {
 	}
 	```
 
+- 输出中文字符“乱码”：
+	- 请在 `C/C++ Compile Run` 插件设置中，添加编译与运行的参数：`-fexec-charset=GBK`。如下图：  
+	![](/assets/vscode-cpp-setup/VSCode-Extension-10.png)
+
 ---
 
 # 三、Extras
@@ -370,10 +377,11 @@ int main(void) {
 ## 1. Competitive Programming Helper (CPH) 插件
 
 - 在 VSCode 中搜索并安装 `CPH` 插件。如下图：  
-<figure style="text-align: center; margin: 0 auto;">
-  <img src="/assets/vscode-cpp-setup/VSCode-Extension-08.png" alt="CPH 插件安装界面" width="500" style="display: block; margin: 0 auto;">
-  <figcaption>CPH 插件安装界面</figcaption>
-</figure>
+  <figure style="text-align: center; margin: 0 auto;">
+    <img src="/assets/vscode-cpp-setup/VSCode-Extension-08.png" alt="CPH 插件安装界面" width="500" style="display: block; margin: 0 auto;">
+    <figcaption>CPH 插件安装界面</figcaption>
+  </figure>
+
 - 在浏览器中安装 `Competitive Companion` 插件。如下图：
   - Google Chrome 浏览器：  
 <figure style="text-align: center; margin: 0 auto;">
@@ -392,15 +400,28 @@ int main(void) {
   <img src="/assets/vscode-cpp-setup/CPH-03.png" alt="Mozilla Firefox 安装界面" width="500" style="display: block; margin: 0 auto;">
   <figcaption>Mozilla Firefox 安装界面</figcaption>
 </figure>
+### 使用方法
 随后，在绝大多数 OJ 平台（如洛谷、LeetCode、Codeforces 等，不支持头歌平台），在开启 VSCode 并打开任意文件夹（推荐新建一个空文件夹存放相关文件）的前提下，点击浏览器插件的"加号"图标，即可将题目信息提取到 VSCode 中。
+
+同时可通过该插件设置，配置默认的语言文件格式与模板，如将默认语言指定为 `cpp` ，指定新建文件的模板文件路径，如下图：  
+![](/assets/vscode-cpp-setup/VSCode-Extension-11.png)  
+默认模板文件示例（仅供参考，可按自己需求修改）：
+
+```cpp
+#include <iostream>
+
+int main(void) {
+    
+}
+```
 
 ## 2. Luogu 插件
 
 - 在 VSCode 中搜索并安装 `vscode-luogu` 插件。如下图：  
-<figure style="text-align: center; margin: 0 auto;">
-  <img src="/assets/vscode-cpp-setup/VSCode-Extension-09.png" alt="Luogu 插件安装界面" width="500" style="display: block; margin: 0 auto;">
-  <figcaption>Luogu 插件安装界面</figcaption>
-</figure>
+  <figure style="text-align: center; margin: 0 auto;">
+    <img src="/assets/vscode-cpp-setup/VSCode-Extension-09.png" alt="Luogu 插件安装界面" width="500" style="display: block; margin: 0 auto;">
+    <figcaption>Luogu 插件安装界面</figcaption>
+  </figure>
 
 ### 使用方法
 
