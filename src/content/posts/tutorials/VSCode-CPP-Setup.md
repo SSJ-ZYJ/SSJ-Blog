@@ -400,6 +400,7 @@ int main(void) {
   <img src="/assets/vscode-cpp-setup/CPH-03.png" alt="Mozilla Firefox 安装界面" width="500" style="display: block; margin: 0 auto;">
   <figcaption>Mozilla Firefox 安装界面</figcaption>
 </figure>
+
 ### 使用方法
 随后，在绝大多数 OJ 平台（如洛谷、LeetCode、Codeforces 等，不支持头歌平台），在开启 VSCode 并打开任意文件夹（推荐新建一个空文件夹存放相关文件）的前提下，点击浏览器插件的"加号"图标，即可将题目信息提取到 VSCode 中。
 
