@@ -33,6 +33,22 @@ enum I18nKey {
 	author = "author",
 	publishedAt = "publishedAt",
 	license = "license",
+
+	sponsorTitle = "sponsorTitle",
+	sponsorDescription = "sponsorDescription",
+	sponsorIntro = "sponsorIntro",
+	sponsorNote = "sponsorNote",
+	alipay = "alipay",
+	wechatPay = "wechatPay",
+	scanToPay = "scanToPay",
+	otherSupportMethods = "otherSupportMethods",
+	shareRecommend = "shareRecommend",
+	shareDesc = "shareDesc",
+	commentInteract = "commentInteract",
+	commentDesc = "commentDesc",
+	followSubscribe = "followSubscribe",
+	subscribeDesc = "subscribeDesc",
+	sponsorsList = "sponsorsList",
 }
 
 export default I18nKey;

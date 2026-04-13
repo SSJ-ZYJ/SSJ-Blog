@@ -36,4 +36,21 @@ export const zh_TW: Translation = {
 	[Key.author]: "作者",
 	[Key.publishedAt]: "發佈於",
 	[Key.license]: "許可協議",
+
+	[Key.sponsorTitle]: "贊助支持",
+	[Key.sponsorDescription]: "支持我的創作",
+	[Key.sponsorIntro]:
+		"如果您覺得我的內容對您有幫助，歡迎通過以下方式支持我的創作。您的每一份支持都是我持續創作的動力！",
+	[Key.sponsorNote]: "所有贊助將用於網站維護、伺服器費用以及內容創作。",
+	[Key.alipay]: "支付寶",
+	[Key.wechatPay]: "微信支付",
+	[Key.scanToPay]: "掃碼支付",
+	[Key.otherSupportMethods]: "其他支持方式",
+	[Key.shareRecommend]: "分享推薦",
+	[Key.shareDesc]: "將我的博客分享給更多朋友",
+	[Key.commentInteract]: "留言互動",
+	[Key.commentDesc]: "在文章下方留下您的想法",
+	[Key.followSubscribe]: "關注訂閱",
+	[Key.subscribeDesc]: "訂閱RSS或關注社交媒體",
+	[Key.sponsorsList]: "已贊助的小夥伴",
 };

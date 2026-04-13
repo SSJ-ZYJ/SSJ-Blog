@@ -1,4 +1,6 @@
 ---
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { Icon } from "astro-icon/components";
 import { siteConfig } from "@/config";
@@ -18,52 +20,52 @@ const breadcrumbSchema = {
 		{
 			"@type": "ListItem",
 			position: 1,
-			name: "首页",
+			name: i18n(I18nKey.home),
 			item: Astro.site,
 		},
 		{
 			"@type": "ListItem",
 			position: 2,
-			name: "赞助支持",
+			name: i18n(I18nKey.sponsorTitle),
 			item: new URL("/sponsor/", Astro.site).toString(),
 		},
 	],
 };
 ---
 
-<MainGridLayout title="赞助支持" description="支持我的创作">
+<MainGridLayout title={i18n(I18nKey.sponsorTitle)} description={i18n(I18nKey.sponsorDescription)}>
 	<script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
 	<div class="card-base px-8 py-6">
 		<div class="flex items-center gap-2 mb-6">
 			<div class="h-8 w-8 rounded-lg bg-[var(--primary)] flex items-center justify-center text-black/70">
 				<Icon name="material-symbols:favorite" class="text-[1.5rem]" />
 			</div>
-			<h1 class="text-2xl font-bold text-90">赞助支持</h1>
+			<h1 class="text-2xl font-bold text-90">{i18n(I18nKey.sponsorTitle)}</h1>
 		</div>
 
 		<div class="mb-6">
 			<p class="text-lg mb-3 text-75">
-				如果您觉得我的内容对您有帮助，欢迎通过以下方式支持我的创作。您的每一份支持都是我持续创作的动力！
+				{i18n(I18nKey.sponsorIntro)}
 			</p>
 			<p class="text-sm text-50">
-				所有赞助将用于网站维护、服务器费用以及内容创作。
+				{i18n(I18nKey.sponsorNote)}
 			</p>
 		</div>
 
-		<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 max-w-4xl mx-auto">
+		<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8 max-w-4xl mx-auto">
 			<div class="donate-card">
 				<div class="flex items-center gap-3 mb-4">
 					<div class="h-10 w-10 rounded-lg bg-blue-500 flex items-center justify-center">
 						<Icon name="fa6-brands:alipay" class="text-[1.5rem] text-white" />
 					</div>
 					<div>
-						<h3 class="text-lg font-bold text-90">支付宝</h3>
-						<p class="text-sm text-50">扫码支付</p>
+						<h3 class="text-lg font-bold text-90">{i18n(I18nKey.alipay)}</h3>
+						<p class="text-sm text-50">{i18n(I18nKey.scanToPay)}</p>
 					</div>
 				</div>
 				<div class="qr-code-placeholder">
 					<div class="relative w-48 h-48 mx-auto rounded-lg overflow-hidden" style={`--theme-hue: ${siteConfig.themeColor.hue}`}>
-						<img src="/sponsor/alipay.svg" alt="支付宝二维码" class="w-full h-full object-cover transition duration-500" />
+						<img src="/sponsor/alipay.svg" alt={i18n(I18nKey.alipay)} class="w-full h-full object-cover transition duration-500" />
 					</div>
 				</div>
 			</div>
@@ -74,50 +76,48 @@ const breadcrumbSchema = {
 						<Icon name="fa6-brands:weixin" class="text-[1.5rem] text-white" />
 					</div>
 					<div>
-						<h3 class="text-lg font-bold text-90">微信支付</h3>
-						<p class="text-sm text-50">扫码支付</p>
+						<h3 class="text-lg font-bold text-90">{i18n(I18nKey.wechatPay)}</h3>
+						<p class="text-sm text-50">{i18n(I18nKey.scanToPay)}</p>
 					</div>
 				</div>
 				<div class="qr-code-placeholder">
 					<div class="relative w-48 h-48 mx-auto rounded-lg overflow-hidden" style={`--theme-hue: ${siteConfig.themeColor.hue}`}>
-						<img src="/sponsor/wechat.svg" alt="微信支付二维码" class="w-full h-full object-cover transition duration-500" />
+						<img src="/sponsor/wechat.svg" alt={i18n(I18nKey.wechatPay)} class="w-full h-full object-cover transition duration-500" />
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<br />
-
 		<div class="card-base p-6 mb-6">
-			<h2 class="text-xl font-bold mb-3 text-90">其他支持方式</h2>
+			<h2 class="text-xl font-bold mb-3 text-90">{i18n(I18nKey.otherSupportMethods)}</h2>
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 				<div class="support-card">
 					<div class="flex items-center gap-2 mb-2">
 						<Icon name="material-symbols:share" class="text-[1.2rem] text-[var(--primary)]" />
-						<span class="font-semibold text-75">分享推荐</span>
+						<span class="font-semibold text-75">{i18n(I18nKey.shareRecommend)}</span>
 					</div>
 					<p class="text-sm text-50">
-						将我的博客分享给更多朋友
+						{i18n(I18nKey.shareDesc)}
 					</p>
 				</div>
 
 				<div class="support-card">
 					<div class="flex items-center gap-2 mb-2">
 						<Icon name="material-symbols:comment" class="text-[1.2rem] text-[var(--primary)]" />
-						<span class="font-semibold text-75">留言互动</span>
+						<span class="font-semibold text-75">{i18n(I18nKey.commentInteract)}</span>
 					</div>
 					<p class="text-sm text-50">
-						在文章下方留下您的想法
+						{i18n(I18nKey.commentDesc)}
 					</p>
 				</div>
 
 				<div class="support-card">
 					<div class="flex items-center gap-2 mb-2">
 						<Icon name="material-symbols:star" class="text-[1.2rem] text-[var(--primary)]" />
-						<span class="font-semibold text-75">关注订阅</span>
+						<span class="font-semibold text-75">{i18n(I18nKey.followSubscribe)}</span>
 					</div>
 					<p class="text-sm text-50">
-						订阅RSS或关注社交媒体
+						{i18n(I18nKey.subscribeDesc)}
 					</p>
 				</div>
 			</div>
@@ -127,7 +127,7 @@ const breadcrumbSchema = {
 			<div class="sponsors-section card-base p-6">
 				<h2 class="text-xl font-bold mb-3 flex items-center gap-2 text-90">
 					<Icon name="material-symbols:group" class="text-[1.5rem] text-[var(--primary)]"></Icon>
-					<span>已赞助的小伙伴</span>
+					<span>{i18n(I18nKey.sponsorsList)}</span>
 				</h2>
 				<div class="sponsors-grid">
 					{sponsors.map((sponsor) => (
@@ -137,7 +137,7 @@ const breadcrumbSchema = {
 									<div class="relative w-full h-full rounded-lg overflow-hidden" style={`--theme-hue: ${siteConfig.themeColor.hue}`}>
 										<Icon name="material-symbols:person" class="absolute inset-0 m-auto text-gray-400 text-[1.2rem]" />
 										{sponsor.avatar && (
-											<img src={sponsor.avatar} alt={`${sponsor.name}的头像`} loading="lazy" class="w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+											<img src={sponsor.avatar} alt={`${sponsor.name}`} loading="lazy" class="w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
 										)}
 									</div>
 								</div>
