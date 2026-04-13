@@ -1,10 +1,10 @@
 ---
-
 import { getEntry, render } from "astro:content";
 import Markdown from "@components/misc/Markdown.astro";
-import I18nKey from "../i18n/i18nKey";
-import { i18n } from "../i18n/translation";
-import MainGridLayout from "../layouts/MainGridLayout.astro";
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { Icon } from "astro-icon/components";
 
 const aboutPost = await getEntry("spec", "about");
 
@@ -13,13 +13,38 @@ if (!aboutPost) {
 }
 
 const { Content } = await render(aboutPost);
+
+const breadcrumbSchema = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	itemListElement: [
+		{
+			"@type": "ListItem",
+			position: 1,
+			name: i18n(I18nKey.home),
+			item: Astro.site,
+		},
+		{
+			"@type": "ListItem",
+			position: 2,
+			name: i18n(I18nKey.about),
+			item: new URL("/about/", Astro.site).toString(),
+		},
+	],
+};
 ---
+
 <MainGridLayout title={i18n(I18nKey.about)} description={i18n(I18nKey.about)}>
-    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
-        <div class="card-base z-10 px-9 py-6 relative w-full ">
-            <Markdown class="mt-2">
-                <Content />
-            </Markdown>
-        </div>
-    </div>
+	<script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
+	<div class="card-base px-8 py-6">
+		<div class="flex items-center gap-2 mb-6">
+			<div class="h-8 w-8 rounded-lg bg-[var(--primary)] flex items-center justify-center text-black/70">
+				<Icon name="material-symbols:person-outline-rounded" class="text-[1.5rem]" />
+			</div>
+			<h1 class="text-2xl font-bold text-90">{i18n(I18nKey.about)}</h1>
+		</div>
+		<Markdown class="mt-2">
+			<Content />
+		</Markdown>
+	</div>
 </MainGridLayout>

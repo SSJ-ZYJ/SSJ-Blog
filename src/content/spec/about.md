@@ -1,4 +1,3 @@
-# 关于
 
 ::github{repo="SSJ-ZYJ/SSJ-Blog"}
 
