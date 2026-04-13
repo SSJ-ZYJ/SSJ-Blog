@@ -33,5 +33,8 @@ yarn.lock
 # vscode
 .vscode/
 
+# trae
+.trae/
+
 # obsidian
 .obsidian/

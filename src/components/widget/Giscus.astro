@@ -12,6 +12,7 @@ const { config, class: className } = Astro.props;
 {config.enable && (
 	<div class:list={["giscus-container", className]}>
 		<script
+			is:inline
 			src="https://giscus.app/client.js"
 			data-repo={config.repo}
 			data-repo-id={config.repoId}
