@@ -1,9 +1,8 @@
-import type { AstroIntegration } from "@swup/astro";
+import type { SearchResult } from "./types/data";
 
 declare global {
 	interface Window {
-		// type from '@swup/astro' is incorrect
-		swup: AstroIntegration;
+		swup: import("@swup/astro").AstroIntegration;
 		pagefind: {
 			search: (query: string) => Promise<{
 				results: Array<{
@@ -25,30 +24,4 @@ declare global {
 
 	const __GIT_COMMIT_HASH__: string;
 	const __GIT_BUILD_DATE__: string;
-}
-
-interface SearchResult {
-	url: string;
-	meta: {
-		title: string;
-	};
-	excerpt: string;
-	content?: string;
-	word_count?: number;
-	filters?: Record<string, unknown>;
-	anchors?: Array<{
-		element: string;
-		id: string;
-		text: string;
-		location: number;
-	}>;
-	weighted_locations?: Array<{
-		weight: number;
-		balanced_score: number;
-		location: number;
-	}>;
-	locations?: number[];
-	raw_content?: string;
-	raw_url?: string;
-	sub_results?: SearchResult[];
 }

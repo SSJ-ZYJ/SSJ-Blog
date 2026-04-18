@@ -1,10 +1,16 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { getPostUrlBySlug } from "@utils/url-utils";
+import type { Page } from "astro";
+import type { PostData } from "@/content.config";
 import PostCard from "./PostCard.astro";
 
 interface PostEntry extends CollectionEntry<"posts"> {
 	slug: string;
+}
+
+interface Props {
+	page: Page<PostEntry>;
 }
 
 const { page } = Astro.props;

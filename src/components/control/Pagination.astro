@@ -9,11 +9,9 @@ interface Props {
 	style?: string;
 }
 
-const { page, style } = Astro.props;
+const { page, class: className, style } = Astro.props;
 
 const HIDDEN = -1;
-
-const className = Astro.props.class;
 
 const ADJ_DIST = 2;
 const VISIBLE = ADJ_DIST * 2 + 1;

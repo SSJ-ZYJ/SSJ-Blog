@@ -6,7 +6,8 @@ import "@chinese-fonts/maple-mono-cn/dist/MapleMono-CN-Bold/result.css";
 interface Props {
 	class: string;
 }
-const className = Astro.props.class;
+
+const { class: className } = Astro.props;
 ---
 <div data-pagefind-body class={`prose dark:prose-invert prose-lg !max-w-none custom-md ${className}`}>
     <!--<div class="prose dark:prose-invert max-w-none custom-md">-->

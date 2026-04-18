@@ -8,14 +8,13 @@ interface Props {
 	headings: MarkdownHeading[];
 }
 
-let { headings = [] } = Astro.props;
+const { headings = [], class: className } = Astro.props;
 
 let minDepth = 10;
 for (const heading of headings) {
 	minDepth = Math.min(minDepth, heading.depth);
 }
 
-const className = Astro.props.class;
 const isPostsRoute = Astro.url.pathname.startsWith(url("/posts/"));
 
 const removeTailingHash = (text: string) => {

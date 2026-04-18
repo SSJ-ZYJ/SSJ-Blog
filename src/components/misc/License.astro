@@ -12,8 +12,7 @@ interface Props {
 	class: string;
 }
 
-const { title, pubDate } = Astro.props;
-const className = Astro.props.class;
+const { title, pubDate, class: className } = Astro.props;
 const profileConf = profileConfig;
 const licenseConf = licenseConfig;
 const postUrl = decodeURIComponent(Astro.url.toString());

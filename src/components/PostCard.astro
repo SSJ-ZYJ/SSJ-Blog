@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
 import path from "node:path";
 import { Icon } from "astro-icon/components";
+import type { PostData } from "@/content.config";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import { getDir } from "../utils/url-utils";
@@ -23,6 +24,7 @@ interface Props {
 	draft: boolean;
 	style: string;
 }
+
 const {
 	entry,
 	title,
@@ -34,10 +36,10 @@ const {
 	image,
 	description,
 	style,
+	class: className,
 } = Astro.props;
-const className = Astro.props.class;
 
-const hasCover = image !== undefined && image !== null && image !== "";
+const hasCover = Boolean(image);
 
 const coverWidth = "28%";
 

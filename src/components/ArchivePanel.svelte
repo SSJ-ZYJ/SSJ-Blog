@@ -1,33 +1,30 @@
 <script lang="ts">
 import { onMount } from "svelte";
-
+import type { PostData } from "@/content.config";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import { getPostUrlBySlug } from "../utils/url-utils";
 
-export let tags: string[] = [];
-export let categories: string[] = [];
-export let sortedPosts: Post[] = [];
-
-const params = new URLSearchParams(window.location.search);
-tags = params.has("tag") ? params.getAll("tag") : [];
-categories = params.has("category") ? params.getAll("category") : [];
-const uncategorized = params.get("uncategorized");
-
 interface Post {
 	slug: string;
-	data: {
-		title: string;
-		tags: string[];
-		category: string | null;
-		published: Date;
-	};
+	data: PostData;
 }
 
 interface Group {
 	year: number;
 	posts: Post[];
 }
+
+interface Props {
+	sortedPosts: Post[];
+}
+
+export let sortedPosts: Post[] = [];
+
+const params = new URLSearchParams(window.location.search);
+const tags = params.has("tag") ? params.getAll("tag") : [];
+const categories = params.has("category") ? params.getAll("category") : [];
+const uncategorized = params.get("uncategorized");
 
 let groups: Group[] = [];
 
