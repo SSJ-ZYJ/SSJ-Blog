@@ -4,6 +4,10 @@ html {
     scrollbar-gutter: stable;
 }
 
+body {
+    overflow: auto;
+}
+
 @layer components {
     .card-base {
         @apply rounded-[var(--radius-large)] overflow-hidden bg-[var(--card-bg)] transition;

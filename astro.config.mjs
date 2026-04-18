@@ -66,6 +66,9 @@ export default defineConfig({
 	site: "https://blog.shenshijun.space/",
 	base: "/",
 	trailingSlash: "always",
+	devToolbar: {
+		enabled: false,
+	},
 	integrations: [
 		tailwind({
 			nesting: true,

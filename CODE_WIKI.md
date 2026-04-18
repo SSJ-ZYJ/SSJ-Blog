@@ -54,16 +54,16 @@ d:\SSJ\Websites\SSJ-Blog\
 │   │   │   ├── TOC.astro
 │   │   │   ├── Tags.astro
 │   │   │   └── WidgetLayout.astro
-│   │   ├── ArchivePanel.svelte
-│   │   ├── ConfigCarrier.astro
-│   │   ├── Footer.astro
-│   │   ├── GlobalStyles.astro
-│   │   ├── LightDarkSwitch.svelte
-│   │   ├── Navbar.astro
-│   │   ├── PostCard.astro
-│   │   ├── PostMeta.astro
-│   │   ├── PostPage.astro
-│   │   └── Search.svelte
+│   │   ├── ArchivePanel.svelte  # 归档面板组件
+│   │   ├── ConfigCarrier.astro  # 配置载体组件
+│   │   ├── Footer.astro          # 页脚组件
+│   │   ├── GlobalStyles.astro     # 全局样式组件
+│   │   ├── LightDarkSwitch.svelte # 亮暗切换组件
+│   │   ├── Navbar.astro          # 导航栏组件
+│   │   ├── PostCard.astro        # 文章卡片组件
+│   │   ├── PostMeta.astro        # 文章元数据组件
+│   │   ├── PostPage.astro        # 文章页面组件
+│   │   └── Search.svelte        # 搜索组件
 │   ├── constants/             # 常量定义
 │   │   ├── constants.ts       # 核心常量
 │   │   ├── icon.ts            # 图标配置
@@ -92,14 +92,15 @@ d:\SSJ\Websites\SSJ-Blog\
 │   │       └── [...slug].astro # 文章详情
 │   ├── plugins/               # 自定义插件
 │   │   ├── expressive-code/   # 代码高亮插件
-│   │   │   ├── custom-copy-button.ts
-│   │   │   └── language-badge.ts
-│   │   ├── rehype-component-admonition.mjs
-│   │   ├── rehype-component-github-card.mjs
-│   │   ├── remark-directive-rehype.js
-│   │   ├── remark-excerpt.js
-│   │   ├── remark-github-admonitions.mjs
-│   │   └── remark-reading-time.mjs
+│   │   │   ├── custom-copy-button.ts     # 自定义复制按钮插件
+│   │   │   └── language-badge.ts         # 语言徽章插件
+│   │   ├── rehype-component-admonition.mjs   # 引导插件
+│   │   ├── rehype-component-github-card.mjs  # GitHub 卡片插件
+│   │   ├── remark-directive-rehype.js        # 代码指令插件
+│   │   ├── remark-excerpt.js                 # 摘要插件
+│   │   ├── remark-excerpt.js                 # 摘要插件
+│   │   ├── remark-github-admonitions.mjs     # GitHub 引导插件
+│   │   └── remark-reading-time.mjs           # 阅读时间插件
 │   ├── types/                 # 类型定义
 │   │   ├── config.ts          # 配置类型
 │   │   └── data.ts            # 数据类型
