@@ -35,25 +35,25 @@ d:\SSJ\Websites\SSJ-Blog\
 ├── src/
 │   ├── components/            # 组件目录
 │   │   ├── control/           # 控制组件
-│   │   │   ├── BackToTop.astro
-│   │   │   ├── ButtonLink.astro
-│   │   │   ├── ButtonTag.astro
-│   │   │   └── Pagination.astro
+│   │   │   ├── BackToTop.astro  # 返回顶部组件
+│   │   │   ├── ButtonLink.astro  # 按钮链接组件
+│   │   │   ├── ButtonTag.astro   # 按钮标签组件
+│   │   │   └── Pagination.astro  # 分页组件
 │   │   ├── misc/              # 杂项组件
-│   │   │   ├── ImageWrapper.astro
-│   │   │   ├── License.astro
-│   │   │   └── Markdown.astro
+│   │   │   ├── ImageWrapper.astro  # 图片包装组件
+│   │   │   ├── License.astro     # 许可证组件
+│   │   │   └── Markdown.astro    # Markdown 组件
 │   │   ├── widget/            # 小部件组件
-│   │   │   ├── Categories.astro
-│   │   │   ├── DisplaySettings.svelte
-│   │   │   ├── Giscus.astro
-│   │   │   ├── NavMenuPanel.astro
-│   │   │   ├── Profile.astro
-│   │   │   ├── SideBar.astro
-│   │   │   ├── Stats.astro
-│   │   │   ├── TOC.astro
-│   │   │   ├── Tags.astro
-│   │   │   └── WidgetLayout.astro
+│   │   │   ├── Categories.astro  # 分类组件
+│   │   │   ├── DisplaySettings.svelte  # 显示设置组件
+│   │   │   ├── Giscus.astro  # Giscus 评论组件
+│   │   │   ├── NavMenuPanel.astro  # 导航菜单面板组件
+│   │   │   ├── Profile.astro  # 个人资料组件
+│   │   │   ├── SideBar.astro  # 侧边栏组件
+│   │   │   ├── Stats.astro  # 统计组件
+│   │   │   ├── TOC.astro  # 目录组件
+│   │   │   ├── Tags.astro  # 标签组件
+│   │   │   └── WidgetLayout.astro  # 小部件布局组件
 │   │   ├── ArchivePanel.svelte  # 归档面板组件
 │   │   ├── ConfigCarrier.astro  # 配置载体组件
 │   │   ├── Footer.astro          # 页脚组件
@@ -82,7 +82,7 @@ d:\SSJ\Websites\SSJ-Blog\
 │   │       └── zh_TW.ts
 │   ├── layouts/               # 布局组件
 │   │   ├── Layout.astro       # 根布局
-│   │   └── MainGridLayout.astro
+│   │   └── MainGridLayout.astro  # 主网格布局
 │   ├── pages/                 # 页面路由
 │   │   ├── [...page].astro    # 首页分页
 │   │   ├── about.astro        # 关于页面
