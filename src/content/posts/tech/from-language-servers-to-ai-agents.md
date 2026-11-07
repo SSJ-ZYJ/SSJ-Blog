@@ -53,7 +53,7 @@ AI 编程工具的普及带来了另一类工作方式。Claude Code、Codex 等
 }
 ```
 
-其中，`method` 表示希望使用的语言服务，`position` 指向当前文档中的位置（行号和字符位置均从零开始）。语言服务器收到请求后，可以利用语法树、类型信息或符号索引找到定义位置，再将结果返回给编辑器。整个过程可以概括为：
+其中，`method` 表示希望使用的语言服务，`position` 指向当前文档中的位置（行号与字符偏移均从零开始；`character` 的计数单位取决于协商的位置编码，未协商时默认使用 UTF-16）。语言服务器收到请求后，可以利用语法树、类型信息或符号索引找到定义位置，再将结果返回给编辑器。整个过程可以概括为：
 
 ```mermaid
 flowchart LR
@@ -186,13 +186,13 @@ sequenceDiagram
     participant A as Agent
     C->>A: session/prompt
     A-->>C: 响应（messageId）
-    A-->>C: session/update（running）
+    A-->>C: session/update: state_update(running)
     A-->>C: session/update（消息与工具调用）
-    A-->>C: session/update（idle / stopReason）
+    A-->>C: session/update: state_update(idle, stopReason)
 ```
 
 > [!NOTE]
-> 第二幅图仅用于说明消息类型，不表示响应和更新通知必须严格按图中的顺序到达。ACP v2 允许消息更新早于 `session/prompt` 响应到达且客户端需要依靠 `messageId` 等标识关联消息。
+> 第二幅图仅用于说明消息类型，不表示响应和更新通知必须严格按图中的顺序到达。ACP v2 允许消息更新早于 `session/prompt` 响应到达，客户端需要依靠 `messageId` 等标识关联消息。其中，`idle` 表示当前没有正在执行的前台工作，并不意味着后台任务已经全部停止。
 
 除了 Prompt 的生命周期，v2 还重新整理了消息流、工具调用更新和文件变更等表达方式。客户端可以更明确地区分“消息已提交”“Agent 正在工作”“等待用户操作”以及“前台工作已结束”。对于需要长时间运行或不断接收新输入的 Agent，这些状态比单纯判断某个请求是否返回更加实用。
 
@@ -202,7 +202,7 @@ sequenceDiagram
 
 Agent 会话和单次请求可以分别管理之后，还有一个问题需要处理，执行任务的进程由谁维护？如果 Agent 依附于某个编辑器窗口的扩展进程，那么即使协议允许异步更新，窗口退出时仍可能直接终止运行中的任务。
 
-2026 年 8 月，VS Code 团队介绍了 Agent Host 架构和 Agent Host Protocol（AHP）。它们将会话状态与 Agent Harness 从具体编辑器窗口中移出，由独立的 Agent Host 进程负责运行。编辑器窗口、Agents 窗口或受到支持的远程客户端，可以连接到同一个 Host 查看和操作会话。
+2026 年 8 月，VS Code 团队介绍了 Agent Host 架构和 Agent Host Protocol（AHP）。对于采用这一架构的会话，Agent Harness 与会话状态由独立的 Agent Host 进程管理，不再依赖最初创建会话的编辑器窗口。编辑器窗口、Agents 窗口或受到支持的远程客户端，可以连接到同一个 Host 查看和操作会话。不过，仍有部分会话运行在传统的 Extension Host 中，并非所有 Agent 会话都已迁移到新架构。
 
 ```mermaid
 flowchart TB
@@ -211,12 +211,18 @@ flowchart TB
         G["Agents 窗口"]
         B["浏览器客户端"]
     end
-    E <-->|"AHP"| H["Agent Host"]
+    subgraph Host["Agent Host（逻辑结构）"]
+        H["AHP 接口"]
+        S["会话状态与事件同步"]
+        R["Harness Adapter"]
+        H --> S
+        H --> R
+    end
+    E <-->|"AHP"| H
     G <-->|"AHP"| H
     B <-->|"AHP（受支持的远程连接）"| H
-    H --> S["会话状态与事件同步"]
-    H --> R["Harness Adapter / Agent Runtime"]
-    R --> W["项目文件、终端与工具"]
+    R --> A["Agent Runtime（可由独立进程承载）"]
+    A --> W["项目文件、终端与工具"]
 ```
 
 对于受支持的会话，关闭最初打开项目的编辑器窗口，不再必然终止 Agent。多个客户端也能够共享 Host 管理的会话状态，而不是各自保存一套互不相关的执行记录。AHP 侧重的是 Host 与客户端之间的会话同步和控制，因此与直接连接 Agent 的 ACP 在职责上有所不同。两者也不是同一个协议的不同版本。
@@ -230,7 +236,7 @@ code agent host
 > [!WARNING]
 > 这里的“独立运行”需要区分几种情况。对于 VS Code 管理的本地 Host，关闭项目窗口可以继续执行任务，但**退出整个 VS Code 应用**并不等同于保留该 Host。独立启动或部署在远程的 Host，也仍然依赖其进程和执行环境持续运行。客户端断开连接，更不代表所有由客户端提供的工具还能继续使用。
 
-与此同时，Agent 的使用界面也在发生变化。传统 IDE 可以增加 Agent 面板、任务管理和变更审查功能，但并不是所有新工具都会沿用“编辑器 + 聊天侧栏”的设计。Zed 团队于 2026 年推出的 [Delta](https://zed.dev/blog/introducing-delta) 就将会话、代码修改与多人协作放在同一个工作空间中，支持围绕同一段代码变更继续讨论和审查。它还尝试让终端中已有的 Agent 会话与协作界面保持同步。
+与此同时，Agent 的使用界面也在发生变化。传统 IDE 可以增加 Agent 面板、任务管理和变更审查功能，但并不是所有新工具都会沿用“编辑器 + 聊天侧栏”的设计。Zed 团队于 2026 年 8 月公布并开启私人测试的 [Delta](https://zed.dev/blog/introducing-delta) 就将会话、代码修改与多人协作放在同一个工作空间中，支持围绕同一段代码变更继续讨论和审查。它还尝试让终端中已有的 Agent 会话与协作界面保持同步。
 
 Delta 采用的 DeltaDB 与 VS Code 的 Agent Host 并不是同一套架构，也不适合将它直接归类为 ACP 或 AHP 的客户端案例。不过，它确实提供了另一个观察角度，即当我们主要通过任务描述、执行反馈和代码审查来参与开发时，交互界面未必需要始终围绕文件树和文本编辑器组织。
 
@@ -238,14 +244,16 @@ Delta 采用的 DeltaDB 与 VS Code 的 Agent Host 并不是同一套架构，�
 
 Agent 越来越需要管理持续存在的会话，但 MCP 在 2026 年 7 月 28 日发布的新规范中，却转向了无状态的协议核心。这种变化初看似乎相反，实际上处理的是不同问题。Agent 需要保留任务进度，远程工具服务则希望每个请求尽可能独立，便于通过普通 HTTP 基础设施部署和扩展。
 
-新的 MCP 核心不再要求原先的协议级初始化握手和会话标识，而是让请求包含所需的协议信息。下面仅摘录一次工具调用的 HTTP 报文结构，用来说明其表达方式。其中省略了认证等部署相关字段，不应直接当作完整的生产请求使用：
+新的 MCP 核心不再要求原先的协议级初始化握手和会话标识，而是让请求包含所需的协议信息。下面仅摘录一次工具调用的 HTTP 报文结构，用来说明其表达方式。其中省略了认证、报文体长度等传输细节，不应直接当作完整的生产请求使用：
 
 ```http
 POST /mcp HTTP/1.1
+Host: mcp.example.com
+Content-Type: application/json
+Accept: application/json, text/event-stream
 MCP-Protocol-Version: 2026-07-28
 Mcp-Method: tools/call
 Mcp-Name: search_code
-Content-Type: application/json
 
 {"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"search_code","arguments":{"query":"RateLimiter"},"_meta":{"io.modelcontextprotocol/protocolVersion":"2026-07-28","io.modelcontextprotocol/clientInfo":{"name":"my-agent","version":"1.0"},"io.modelcontextprotocol/clientCapabilities":{}}}}
 ```
@@ -256,11 +264,11 @@ Content-Type: application/json
 
 ```mermaid
 flowchart LR
-    C["客户端连接\n可断开、重连"] <--> H["Agent Host / Runtime\n管理执行进程"]
-    H <--> S[("会话状态\n按实现保存与恢复")]
+    C["客户端连接<br/>可断开、重连"] <--> H["Agent Host / Runtime<br/>管理执行进程"]
+    H <--> S[("会话状态<br/>按实现保存与恢复")]
     H --> T["工具调用"]
     T --> M["无状态 MCP 请求"]
-    M --> V["外部服务\n可能具有业务状态"]
+    M --> V["外部服务<br/>可能具有业务状态"]
 ```
 
 > [!NOTE]
@@ -289,7 +297,7 @@ stateDiagram-v2
     Cancelled --> [*]
 ```
 
-上图只是一个简化的生命周期示例，并不是 ACP、AHP 或某个具体 Agent 的官方状态定义。它提示了一个重要区别。**状态机负责描述状态如何变化，状态存储负责决定这些变化能否在进程重启后恢复，而 MCP 请求是否无状态，则属于另一层通信设计。** 例如，工具调用完成后，Agent 可以根据返回结果从等待状态重新进入执行状态。即使这个工具请求本身完全无状态，也不会妨碍 Agent 维护任务进度。
+上图只是一个简化的生命周期示例，并不是 ACP、AHP 或某个具体 Agent 的官方状态定义。它提示了一个重要区别。**状态机描述状态如何变化，状态持久化是进程重启后恢复任务的重要前提，而 MCP 请求是否无状态，则属于另一层通信设计。** 即使已经保存状态，恢复时仍需要处理尚未确认的外部操作及其可能产生的副作用。 例如，工具调用完成后，Agent 可以根据返回结果从等待状态重新进入执行状态。即使这个工具请求本身完全无状态，也不会妨碍 Agent 维护任务进度。
 
 不过，保存任务状态还不等于能够安全恢复任务。如果 Agent 在文件已经写入、但结果尚未记录时意外退出，恢复后再次执行相同操作，就可能产生重复副作用。因此，长期运行的 Agent 还需要考虑操作结果的持久化、重复执行保护以及失败后的人工介入方式。
 
@@ -322,6 +330,8 @@ Agent 加入开发流程后，一部分工作开始以任务为单位组织。�
 ---
 
 ## 参考
+
+本文涉及的协议与产品状态以 2026 年 11 月 7 日前公开的资料为准。部分规范仍在调整中，具体接口请以对应版本的官方文档为准。
 
 1. [A Common Protocol for Languages — Microsoft, 2016](https://code.visualstudio.com/blogs/2016/06/27/common-language-protocol)
 2. [Introducing the Model Context Protocol — Anthropic, 2024](https://www.anthropic.com/news/model-context-protocol)
