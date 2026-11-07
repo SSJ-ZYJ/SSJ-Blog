@@ -1,9 +1,12 @@
-import { spawn, spawnSync } from "node:child_process";
+import { spawn } from "node:child_process";
+import { fileURLToPath } from "node:url";
+
+const probe = fileURLToPath(new URL("./fd-probe.cjs", import.meta.url));
 
 const build = "pnpm exec astro build && pnpm exec pagefind --site dist";
 
-// EdgeOne's build container caps open files at 1024, and Astro's module graph
-// can exhaust that. Raise the soft limit as far as the hard limit allows.
+// EdgeOne's build container caps open files at 1024. Raise the soft limit as
+// far as the hard limit allows (currently it is capped, this only reports it).
 const limits = [1048576, 65535, 32768, 16384, 8192, 4096, 2048];
 
 const run = (script, env) =>
@@ -37,28 +40,13 @@ const script = [
 	build,
 ].join("; ");
 
-const first = await run(script, process.env);
-if (first.code === 0 || !first.output.includes("EMFILE")) {
-	process.exit(first.code);
-}
-
-// Node's synchronous ESM path (require(esm)) can leak descriptors; retry
-// without it when EMFILE is what killed the build.
-const supportsFlag =
-	spawnSync(process.execPath, ["--no-experimental-require-module", "-e", ""], {
-		stdio: "ignore",
-	}).status === 0;
-
-if (!supportsFlag) {
-	process.exit(first.code);
-}
-
-console.log("[build] EMFILE detected, retrying without require(esm)");
-const retryEnv = {
+// The probe only inspects the descriptor table, it does not change the build.
+const env = {
 	...process.env,
-	NODE_OPTIONS: [process.env.NODE_OPTIONS, "--no-experimental-require-module"]
+	NODE_OPTIONS: [process.env.NODE_OPTIONS, `--require ${probe}`]
 		.filter(Boolean)
 		.join(" "),
 };
-const second = await run(script, retryEnv);
-process.exit(second.code);
+
+const { code } = await run(script, env);
+process.exit(code);
