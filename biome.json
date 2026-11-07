@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.6.6/schema.json",
 	"vcs": {
 		"enabled": false,
 		"clientKind": "git",
@@ -24,7 +24,7 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true,
+			"preset": "recommended",
 			"style": {
 				"noParameterAssign": "error",
 				"useAsConstAssertion": "error",
@@ -58,6 +58,12 @@
 						"noUnusedImports": "off"
 					}
 				}
+			}
+		},
+		{
+			"includes": ["**/*.md"],
+			"formatter": {
+				"enabled": false
 			}
 		}
 	]
