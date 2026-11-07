@@ -134,3 +134,34 @@
         margin: 1em 0;
     }
 }
+
+/* Mermaid diagrams: transparent background, horizontally centered */
+.custom-md pre.mermaid {
+    display: flex;
+    justify-content: center;
+    margin: 1.5em 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    white-space: normal;
+}
+
+.custom-md pre.mermaid svg {
+    max-width: 100%;
+    height: auto;
+    background: transparent !important;
+}
+
+/* Mermaid dark theme adds drop-shadow filters inside the SVG; strip them */
+.custom-md pre.mermaid svg * {
+    filter: none !important;
+}
+
+/* Keep diagram typography in line with the article font */
+.custom-md pre.mermaid svg,
+.custom-md pre.mermaid svg text,
+.custom-md pre.mermaid svg tspan,
+.custom-md pre.mermaid svg .label {
+    font-family: 'LXGW WenKai', 'Noto Sans SC', sans-serif !important;
+}

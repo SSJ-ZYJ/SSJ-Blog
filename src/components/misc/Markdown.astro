@@ -42,4 +42,44 @@ document.addEventListener("click", function (e: MouseEvent) {
         target.setAttribute("data-timeout-id", newTimeoutId.toString());
     }
 });
+
+// Render mermaid diagrams lazily; re-run after swup page transitions
+async function renderMermaid() {
+    const nodes = document.querySelectorAll<HTMLElement>("pre.mermaid:not([data-processed])");
+    if (nodes.length === 0) return;
+    const mermaid = (await import("mermaid")).default;
+    mermaid.initialize({
+        startOnLoad: false,
+        theme: "dark",
+        themeVariables: {
+            background: "transparent",
+            fontFamily: "'LXGW WenKai', 'Noto Sans SC', sans-serif",
+            primaryColor: "#24262b",
+            primaryTextColor: "#ffffff",
+            textColor: "#ffffff",
+            primaryBorderColor: "#cccccc",
+            lineColor: "#cccccc",
+            edgeLabelBackground: "#24262b",
+            dropShadow: "none",
+        },
+        themeCSS: `
+            .node rect, .node circle, .node ellipse, .node polygon, .node path,
+            .edgePath path, .flowchart-link, .cluster rect, marker path {
+                filter: none !important;
+            }
+            /* Mermaid paints edge labels with 50% opacity, which looks washed out */
+            .edgeLabel rect, .labelBkg {
+                opacity: 1 !important;
+            }
+        `,
+        securityLevel: "strict",
+    });
+    try {
+        await mermaid.run({ nodes: Array.from(nodes) });
+    } catch (e) {
+        console.error("Failed to render mermaid diagram", e);
+    }
+}
+renderMermaid();
+document.addEventListener("swup:page:view", renderMermaid);
 </script>
