@@ -1,11 +1,4 @@
 ---
-import "@fontsource/noto-sans/400.css";
-import "@fontsource/noto-sans/500.css";
-import "@fontsource/noto-sans/700.css";
-import "@fontsource/noto-sans-sc/400.css";
-import "@fontsource/noto-sans-sc/500.css";
-import "@fontsource/noto-sans-sc/700.css";
-
 import ConfigCarrier from "@components/ConfigCarrier.astro";
 import { profileConfig, siteConfig } from "@/config";
 import {
@@ -82,6 +75,16 @@ const bannerOffset =
 	<head>
 
 		<title>{pageTitle}</title>
+
+		<link rel="stylesheet" href={url("/fonts/noto-sans/400.css")} />
+		<link rel="stylesheet" href={url("/fonts/noto-sans/500.css")} />
+		<link rel="stylesheet" href={url("/fonts/noto-sans/700.css")} />
+		<link rel="stylesheet" href={url("/fonts/noto-sans-sc/400.css")} />
+		<link rel="stylesheet" href={url("/fonts/noto-sans-sc/500.css")} />
+		<link rel="stylesheet" href={url("/fonts/noto-sans-sc/700.css")} />
+		<link rel="stylesheet" href={url("/fonts/maple-mono-cn/regular/result.css")} />
+		<link rel="stylesheet" href={url("/fonts/maple-mono-cn/bold/result.css")} />
+		<link rel="stylesheet" href={url("/fonts/lxgw-wenkai/index.css")} />
 
 		<meta charset="UTF-8" />
 		<meta name="description" content={description || pageTitle}>

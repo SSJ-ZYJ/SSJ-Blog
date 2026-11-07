@@ -1,3 +1,6 @@
+# generated fonts (scripts/sync-fonts.mjs)
+public/fonts/
+
 # build output
 dist/
 

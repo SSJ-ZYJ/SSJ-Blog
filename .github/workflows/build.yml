@@ -64,4 +64,8 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run Astro Build
-        run: pnpm astro build
+        # EdgeOne builds inside a container capped at 1024 open files; keep CI on
+        # the same budget so font/CSS changes cannot silently break deploys.
+        run: |
+          ulimit -n 1024
+          NODE_OPTIONS="--require $PWD/scripts/fd-probe.cjs" pnpm astro build

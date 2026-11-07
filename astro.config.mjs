@@ -32,6 +32,11 @@ import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
 import { remarkGithubAdmonitionsToDirectives } from "./src/plugins/remark-github-admonitions.mjs";
 import { remarkMermaid } from "./src/plugins/remark-mermaid.mjs";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
+import { syncFonts } from "./scripts/sync-fonts.mjs";
+
+// Fonts are served from public/ instead of being bundled, so every Astro command
+// has to make sure they are in place first.
+syncFonts();
 
 let __GIT_COMMIT_HASH__ = "unknown";
 let __GIT_BUILD_DATE__ = "unknown";
