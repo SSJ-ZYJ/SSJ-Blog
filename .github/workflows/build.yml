@@ -68,4 +68,4 @@ jobs:
         # the same budget so font/CSS changes cannot silently break deploys.
         run: |
           ulimit -n 1024
-          NODE_OPTIONS="--require $PWD/scripts/fd-probe.cjs" pnpm astro build
+          pnpm astro build
