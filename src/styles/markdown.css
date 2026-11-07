@@ -165,3 +165,11 @@
 .custom-md pre.mermaid svg .label {
     font-family: 'LXGW WenKai', 'Noto Sans SC', sans-serif !important;
 }
+
+/* LXGW WenKai inherits the Japanese ellipsis from Klee One, which draws it
+   near the middle of the line. Chinese typography puts the dots on the
+   baseline, so shift the wrapped ellipsis back down. */
+.cjk-ellipsis {
+    display: inline-block;
+    transform: translateY(0.33em);
+}

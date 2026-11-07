@@ -24,6 +24,7 @@ import remarkSectionize from "remark-sectionize";
 import { expressiveCodeConfig } from "./src/config.ts";
 import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-copy-button.js";
 import { pluginLanguageBadge } from "./src/plugins/expressive-code/language-badge.ts";
+import { rehypeCjkEllipsis } from "./src/plugins/rehype-cjk-ellipsis.mjs";
 import { AdmonitionComponent } from "./src/plugins/rehype-component-admonition.mjs";
 import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.mjs";
 import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
@@ -201,6 +202,7 @@ export default defineConfig({
 					},
 				},
 			],
+			rehypeCjkEllipsis,
 		],
 	},
 	vite: {

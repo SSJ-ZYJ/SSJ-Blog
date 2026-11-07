@@ -25,6 +25,13 @@ let cursorInterval: ReturnType<typeof setInterval> | undefined;
 
 let textLines = $derived(Array.isArray(lines) ? lines : [lines]);
 
+let segments = $derived(
+	currentText
+		.split(/(…+)/)
+		.filter(Boolean)
+		.map((text) => ({ text, ellipsis: text.startsWith("…") })),
+);
+
 function type() {
 	if (!textLines.length) return;
 
@@ -75,7 +82,11 @@ onDestroy(() => {
 <div
   class="typewriter-container inline-flex items-center text-neutral-400 min-h-[1.5rem] whitespace-nowrap"
 >
-  <span>{currentText}</span>
+  <span
+    >{#each segments as segment, i (i)}{#if segment.ellipsis}<span class="cjk-ellipsis"
+        >{segment.text}</span
+      >{:else}{segment.text}{/if}{/each}</span
+  >
   <span class="cursor ml-[1px]" style:opacity={cursorVisible ? 1 : 0}>|</span>
 </div>
 
