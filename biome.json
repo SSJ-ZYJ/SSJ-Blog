@@ -24,7 +24,6 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"preset": "recommended",
 			"style": {
 				"noParameterAssign": "error",
 				"useAsConstAssertion": "error",

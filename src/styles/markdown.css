@@ -166,6 +166,13 @@
     font-family: 'LXGW WenKai', 'Noto Sans SC', sans-serif !important;
 }
 
+/* Small caption that sits directly under a diagram or image */
+.custom-md .figure-caption {
+    @apply text-center text-sm text-black/50 dark:text-white/50;
+    margin: -0.5em 0 1.75em;
+    line-height: 1.7;
+}
+
 /* LXGW WenKai inherits the Japanese ellipsis from Klee One, which draws it
    near the middle of the line. Chinese typography puts the dots on the
    baseline, so shift the wrapped ellipsis back down. */
