@@ -2,6 +2,7 @@
 title: Git 之外，版本控制正在改变什么？
 published: 2026-11-19T12:42:09+08:00
 description: 从 Git、Jujutsu 到 DeltaDB 和 Anthropic Scion，浅看代码版本管理的不同设计，以及 Agent 带来的新问题。
+image: "/assets/evolution-of-version-control/cover.png"
 tags:
   - Tech
   - Git

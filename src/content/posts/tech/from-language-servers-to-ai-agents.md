@@ -2,6 +2,7 @@
 title: 从语言服务器到智能体：开发工具的十年演进之路
 published: 2026-11-07T12:19:00+08:00
 description: 从 LSP、MCP 与 ACP 的出现，到 2026 年 Agent 会话和运行环境的变化，回顾开发工具如何逐渐拆分语言分析、工具调用与任务执行等能力。
+image: "/assets/from-language-servers-to-ai-agents/cover.png"
 tags:
   - Tech
   - AI
